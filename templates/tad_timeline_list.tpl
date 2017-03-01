@@ -31,14 +31,14 @@
 
           <td>
             <!--事件標題-->
-            <a href="<{$action}>?timeline_sn=<{$data.timeline_sn}>"><{$data.text_headline}></a>
+            <a href="<{$xoops_url}>/modules/tad_timeline/index.php?timeline_sn=<{$data.timeline_sn}>"><{$data.text_headline}></a>
             <{$data.list_file}>
           </td>
 
           <{if $edit_event}>
             <td nowrap="nowrap">
               <a href="javascript:delete_tad_timeline_func(<{$data.timeline_sn}>);" class="btn btn-xs btn-danger"><{$smarty.const._TAD_DEL}></a>
-              <a href="<{$action}>?op=tad_timeline_form&timeline_sn=<{$data.timeline_sn}>" class="btn btn-xs btn-warning"><{$smarty.const._TAD_EDIT}></a>
+              <a href="<{$xoops_url}>/modules/tad_timeline/index.php?op=tad_timeline_form&timeline_sn=<{$data.timeline_sn}>" class="btn btn-xs btn-warning"><{$smarty.const._TAD_EDIT}></a>
             </td>
           <{/if}>
         </tr>

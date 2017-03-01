@@ -58,21 +58,6 @@ function get_start_at_slide($def_timeline_sn = "")
     }
     $xoopsTpl->assign('have_content', $have_content);
 
-    if (empty($def_timeline_sn)) {
-        $xoopsTpl->assign('start_at_slide', 1);
-        return;
-    } else {
-        $xoopsTpl->assign('start_at_slide', $order[$def_timeline_sn]);
-    }
-
-    // if (!file_exists(XOOPS_ROOT_PATH . "/modules/tadtools/colorbox.php")) {
-    //     redirect_header("index.php", 3, _MA_NEED_TADTOOLS);
-    // }
-    // include_once XOOPS_ROOT_PATH . "/modules/tadtools/colorbox.php";
-    // $colorbox      = new colorbox('.media-image', '100%');
-    // $colorbox_code = $colorbox->render();
-    // $xoopsTpl->assign('colorbox_code', $colorbox_code);
-
     if (!file_exists(XOOPS_ROOT_PATH . "/modules/tadtools/fancybox.php")) {
         redirect_header("index.php", 3, _MA_NEED_TADTOOLS);
     }
@@ -80,6 +65,13 @@ function get_start_at_slide($def_timeline_sn = "")
     $fancybox      = new fancybox('.media_image', '100%');
     $fancybox_code = $fancybox->render(false);
     $xoopsTpl->assign('fancybox_code', $fancybox_code);
+
+    if (empty($def_timeline_sn)) {
+        $xoopsTpl->assign('start_at_slide', 1);
+        return;
+    } else {
+        $xoopsTpl->assign('start_at_slide', $order[$def_timeline_sn]);
+    }
 
 }
 

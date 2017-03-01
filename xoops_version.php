@@ -31,8 +31,8 @@ $modversion['image']       = "images/logo.png";
 $modversion['dirname']     = basename(__DIR__);
 
 //---模組狀態資訊---//
-$modversion['status_version']      = '1.0';
-$modversion['release_date']        = '2017-02-28';
+$modversion['status_version']      = '1.1';
+$modversion['release_date']        = '2017-03-01';
 $modversion['module_website_url']  = 'http://www.tad0616.net';
 $modversion['module_website_name'] = _MI_TAD_TIMELINE_AUTHOR_WEB;
 $modversion['module_status']       = 'release';
