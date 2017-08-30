@@ -4519,7 +4519,7 @@ if(typeof VMM != 'undefined' && typeof VMM.MediaElement == 'undefined') {
 				}
 			// IMAGE
 				if (m.type				==	"image") {
-					mediaElem			=	"<a href='" + m.id + "' class='media_image'><img src='" + m.id + "' class='media-image'></a>";
+					mediaElem			=	"<a href='" + m.id + "' class='media_image'><img src='" + m.id + "' class='media-image' alt='media-image'></a>";
 			// FLICKR
 				} else if (m.type		==	"flickr") {
 					//mediaElem			=	"<div class='media-image media-shadow' id='" + uid + "'>" + loading_messege + "</div>";
