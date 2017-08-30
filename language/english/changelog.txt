@@ -1,0 +1,16 @@
+Tad Timeline 1.2 (released on 2017-06-16)
+==============================================
+1. Complete accessibility 2.0 A level detection
+
+
+Tad Timeline 1.1 (released on 2017-03-01)
+==============================================
+1. Fix the problem that can not be added in list mode
+2. Join timeline blocks
+3. Add preferences for the default display list or timeline
+4. Picture to click to enlarge
+
+
+Tad Timeline 1.0 (released on 2017-01-31)
+==============================================
+1. officially released
