@@ -9,7 +9,7 @@ function tad_timeline_search($queryarray, $andor, $limit, $offset, $userid)
         }
         $queryarray = $arr;
     }
-    $sql = "SELECT `timeline_sn`, `text_headline`, `year`, `month`, `day`, `timeline_uid` FROM " . $xoopsDB->prefix("tad_timeline") . " where 1";
+    $sql = "SELECT `timeline_sn`, `text_headline`, `year`, `month`, `day`, `timeline_uid` FROM " . $xoopsDB->prefix("tad_timeline") . " WHERE 1";
     if ($userid != 0) {
         $sql .= " AND uid=" . $userid . " ";
     }
@@ -21,7 +21,7 @@ function tad_timeline_search($queryarray, $andor, $limit, $offset, $userid)
         }
         $sql .= ") ";
     }
-    $sql .= "ORDER BY  `year` DESC , `month` DESC , `day` DESC";
+    $sql    .= "ORDER BY  `year` DESC , `month` DESC , `day` DESC";
     $result = $xoopsDB->query($sql, $limit, $offset);
     $ret    = array();
     $i      = 0;

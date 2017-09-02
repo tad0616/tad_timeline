@@ -9,7 +9,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright  The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright  XOOPS Project (https://xoops.org)
  * @license    http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package    Events
  * @since      2.5
@@ -103,7 +103,7 @@ function mk_json()
     $json['timeline']['text']      = _MD_TAD_TIMELINE_JOSN_TEXT;
     $json['timeline']['startDate'] = date("Y,m,d");
 
-    $sql    = "select * from `" . $xoopsDB->prefix("tad_timeline") . "` order by year, month, day";
+    $sql = "SELECT * FROM `" . $xoopsDB->prefix("tad_timeline") . "` ORDER BY year, month, day";
     $result = $xoopsDB->query($sql)
     or web_error($sql);
     $i = 0;
@@ -312,7 +312,7 @@ function list_tad_timeline()
 
     include_once XOOPS_ROOT_PATH . "/modules/tadtools/TadUpFiles.php";
     $TadUpFiles = new TadUpFiles("tad_timeline");
-    $sql        = "select * from `" . $xoopsDB->prefix("tad_timeline") . "` order by `year`, `month`, `day`";
+    $sql        = "SELECT * FROM `" . $xoopsDB->prefix("tad_timeline") . "` ORDER BY `year`, `month`, `day`";
 
     //getPageBar($原sql語法, 每頁顯示幾筆資料, 最多顯示幾個頁數選項);
     $PageBar = getPageBar($sql, 20, 10);
