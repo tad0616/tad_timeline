@@ -28,7 +28,7 @@ include_once XOOPS_ROOT_PATH . "/modules/tadtools/tad_function.php";
 //tad_timeline編輯表單
 function tad_timeline_form($timeline_sn = '')
 {
-    global $xoopsDB, $xoopsTpl, $isAdmin;
+    global $xoopsDB, $xoopsTpl, $isAdmin, $xoopsUser ;
     $edit_event = power_chk("tad_timeline", 1);
     if (!$edit_event) {
         redirect_header($_SERVER['PHP_SELF'], 3, _TAD_PERMISSION_DENIED);
