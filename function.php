@@ -114,9 +114,9 @@ function mk_json()
         }
 
         //過濾讀出的變數值
-        $year          = intval($year);
-        $month         = intval($month);
-        $day           = intval($day);
+        $year          = (int)$year;
+        $month         = (int)$month;
+        $day           = (int)$day;
         $text_headline = strip_tags($text_headline);
         $text_text     = strip_tags($text_text);
 
@@ -180,13 +180,13 @@ function insert_tad_timeline()
 
     $myts = MyTextSanitizer::getInstance();
 
-    $timeline_sn   = intval($_POST['timeline_sn']);
+    $timeline_sn   = (int)$_POST['timeline_sn'];
     $year          = $myts->addSlashes($_POST['year']);
     $month         = $myts->addSlashes($_POST['month']);
     $day           = $myts->addSlashes($_POST['day']);
     $text_headline = $myts->addSlashes($_POST['text_headline']);
     $text_text     = $myts->addSlashes($_POST['text_text']);
-    $timeline_uid  = intval($_POST['timeline_uid']);
+    $timeline_uid  = (int)$_POST['timeline_uid'];
 
     $sql = "insert into `" . $xoopsDB->prefix("tad_timeline") . "` (
         `year`,
@@ -237,13 +237,13 @@ function update_tad_timeline($timeline_sn = '')
 
     $myts = MyTextSanitizer::getInstance();
 
-    $timeline_sn   = intval($_POST['timeline_sn']);
+    $timeline_sn   = (int)$_POST['timeline_sn'];
     $year          = $myts->addSlashes($_POST['year']);
     $month         = $myts->addSlashes($_POST['month']);
     $day           = $myts->addSlashes($_POST['day']);
     $text_headline = $myts->addSlashes($_POST['text_headline']);
     $text_text     = $myts->addSlashes($_POST['text_text']);
-    $timeline_uid  = intval($_POST['timeline_uid']);
+    $timeline_uid  = (int)$_POST['timeline_uid'];
 
     $sql = "update `" . $xoopsDB->prefix("tad_timeline") . "` set
        `year` = '{$year}',
