@@ -9,7 +9,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright  The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright  XOOPS Project (https://xoops.org)
  * @license    http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package    Events
  * @since      2.5
@@ -45,7 +45,7 @@ function get_start_at_slide($def_timeline_sn = "")
             "{$_SERVER['PHP_SELF']}?op=delete_tad_timeline&timeline_sn=", "timeline_sn");
     }
 
-    $sql    = "select timeline_sn from `" . $xoopsDB->prefix("tad_timeline") . "` ORDER BY  `year` , `month` , `day`";
+    $sql = "SELECT timeline_sn FROM `" . $xoopsDB->prefix("tad_timeline") . "` ORDER BY  `year` , `month` , `day`";
     $result = $xoopsDB->query($sql) or web_error($sql);
 
     $i            = 1;
