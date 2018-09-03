@@ -41,3 +41,4 @@ define('_MD_TAD_TIMELINE_LIST_MODE', 'list mode');
 define('_MD_TAD_TIMELINE_TIMELINE_MODE', 'Timeline mode');
 
 define('_MD_TAD_TIMELINE_EMPTY', 'no information');
+define('_MD_TAD_TIMELINE_JSON_ERROR', 'Json write failed (please check if there is write permission)');

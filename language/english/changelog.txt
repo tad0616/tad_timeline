@@ -1,3 +1,9 @@
+Tad Timeline 1.3 (released on 2018-09-03)
+=======================================================
+1. Fix the problem that the annual cannot be less than 1970
+2. Remove the tchinese language
+
+
 Tad Timeline 1.2 (released on 2017-06-16)
 ==============================================
 1. Complete accessibility 2.0 A level detection

@@ -25,10 +25,14 @@ function xoops_module_update_tad_timeline($module, $old_version)
         go_update1();
     }
 
+    if (chk_chk2()) {
+        go_update2();
+    }
+
     return true;
 }
 
-//檢查某欄位是否存在
+//檢查選單檔是否存在
 function chk_chk1()
 {
     return file_exists(XOOPS_ROOT_PATH . '/modules/tad_timeline/interface_menu.php');
@@ -40,6 +44,30 @@ function go_update1()
 {
     unlink(XOOPS_ROOT_PATH . '/modules/tad_timeline/interface_menu.php');
 
+    return true;
+}
+
+//檢查year欄位是否為year類型
+function chk_chk2()
+{
+    global $xoopsDB;
+    $sql        = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '" . $xoopsDB->prefix("tad_timeline") . "' AND COLUMN_NAME = 'year'";
+    $result     = $xoopsDB->query($sql);
+    list($type) = $xoopsDB->fetchRow($result);
+    if ($type == 'year') {
+        return true;
+    }
+
+    return false;
+
+}
+
+//執行更新
+function go_update2()
+{
+    global $xoopsDB;
+    $sql = "ALTER TABLE `" . $xoopsDB->prefix("tad_timeline") . "` CHANGE `year` `year` char(4) COLLATE 'utf8_general_ci' NOT NULL DEFAULT '0000' AFTER `timeline_sn`;";
+    $xoopsDB->queryF($sql) or redirect_header(XOOPS_URL, 3, $xoopsDB->error());
     return true;
 }
 

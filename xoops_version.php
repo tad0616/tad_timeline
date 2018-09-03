@@ -21,7 +21,7 @@ $modversion = array();
 
 //---模組基本資訊---//
 $modversion['name']        = _MI_TAD_TIMELINE_NAME;
-$modversion['version']     = '1.2';
+$modversion['version']     = '1.3';
 $modversion['description'] = _MI_TAD_TIMELINE_DESC;
 $modversion['author']      = _MI_TAD_TIMELINE_AUTHOR;
 $modversion['credits']     = _MI_TAD_TIMELINE_CREDITS;
@@ -31,8 +31,8 @@ $modversion['image']       = "images/logo.png";
 $modversion['dirname']     = basename(__DIR__);
 
 //---模組狀態資訊---//
-$modversion['status_version']      = '1.2';
-$modversion['release_date']        = '2017-06-16';
+$modversion['status_version']      = '1.3';
+$modversion['release_date']        = '2018-09-03';
 $modversion['module_website_url']  = 'http://www.tad0616.net';
 $modversion['module_website_name'] = _MI_TAD_TIMELINE_AUTHOR_WEB;
 $modversion['module_status']       = 'release';
