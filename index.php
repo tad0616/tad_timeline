@@ -49,7 +49,7 @@ function get_start_at_slide($def_timeline_sn = "")
     $result = $xoopsDB->query($sql) or web_error($sql);
 
     $i            = 1;
-    $order        = "";
+    $order        = array();
     $have_content = false;
     while (list($timeline_sn) = $xoopsDB->fetchRow($result)) {
         $order[$timeline_sn] = $i;

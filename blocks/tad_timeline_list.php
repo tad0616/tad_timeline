@@ -46,11 +46,11 @@ function tad_timeline_list($options)
 
         $block['all_content'] = $all_content;
     } else {
-        $sql = "SELECT timeline_sn FROM `" . $xoopsDB->prefix("tad_timeline") . "` ORDER BY  `year` , `month` , `day`";
+        $sql    = "SELECT timeline_sn FROM `" . $xoopsDB->prefix("tad_timeline") . "` ORDER BY  `year` , `month` , `day`";
         $result = $xoopsDB->query($sql) or web_error($sql);
 
         $i     = 1;
-        $order = "";
+        $order = array();
         while (list($timeline_sn) = $xoopsDB->fetchRow($result)) {
             $order[$timeline_sn] = $i;
             $have_content        = true;
@@ -80,7 +80,7 @@ function tad_timeline_list_edit($options)
 {
     global $xoopsDB;
 
-    $sql = "SELECT timeline_sn,year,month,day,text_headline FROM `" . $xoopsDB->prefix("tad_timeline") . "` ORDER BY year, month, day";
+    $sql    = "SELECT timeline_sn,year,month,day,text_headline FROM `" . $xoopsDB->prefix("tad_timeline") . "` ORDER BY year, month, day";
     $result = $xoopsDB->query($sql)
     or web_error($sql);
     $opt = '';
