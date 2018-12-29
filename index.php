@@ -46,7 +46,7 @@ function get_start_at_slide($def_timeline_sn = "")
     }
 
     $sql = "SELECT timeline_sn FROM `" . $xoopsDB->prefix("tad_timeline") . "` ORDER BY  `year` , `month` , `day`";
-    $result = $xoopsDB->query($sql) or web_error($sql);
+    $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, _LINE__);
 
     $i            = 1;
     $order        = array();

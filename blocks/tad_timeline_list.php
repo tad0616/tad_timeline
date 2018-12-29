@@ -13,7 +13,7 @@ function tad_timeline_list($options)
         include_once XOOPS_ROOT_PATH . "/modules/tadtools/TadUpFiles.php";
         $TadUpFiles = new TadUpFiles("tad_timeline");
         $sql        = "SELECT * FROM `" . $xoopsDB->prefix("tad_timeline") . "` ORDER BY `year`, `month`, `day`";
-        $result     = $xoopsDB->query($sql) or web_error($sql);
+        $result     = $xoopsDB->query($sql) or web_error($sql, __FILE__, _LINE__);
 
         $all_content = '';
         $i           = 0;
@@ -47,7 +47,7 @@ function tad_timeline_list($options)
         $block['all_content'] = $all_content;
     } else {
         $sql    = "SELECT timeline_sn FROM `" . $xoopsDB->prefix("tad_timeline") . "` ORDER BY  `year` , `month` , `day`";
-        $result = $xoopsDB->query($sql) or web_error($sql);
+        $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, _LINE__);
 
         $i     = 1;
         $order = array();
@@ -82,7 +82,7 @@ function tad_timeline_list_edit($options)
 
     $sql    = "SELECT timeline_sn,year,month,day,text_headline FROM `" . $xoopsDB->prefix("tad_timeline") . "` ORDER BY year, month, day";
     $result = $xoopsDB->query($sql)
-    or web_error($sql);
+    or web_error($sql, __FILE__, _LINE__);
     $opt = '';
     while (list($timeline_sn, $year, $month, $day, $text_headline) = $xoopsDB->fetchRow($result)) {
         $selected = $options[1] == $timeline_sn ? 'selected' : '';

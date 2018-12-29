@@ -105,7 +105,7 @@ function mk_json()
 
     $sql    = "SELECT * FROM `" . $xoopsDB->prefix("tad_timeline") . "` ORDER BY year, month, day";
     $result = $xoopsDB->query($sql)
-    or web_error($sql);
+    or web_error($sql, __FILE__, _LINE__);
     $i = 0;
     while ($all = $xoopsDB->fetchArray($result)) {
         //以下會產生這些變數： $timeline_sn, $year, $month, $day, $text_headline, $text_text, $timeline_uid
@@ -158,7 +158,7 @@ function get_tad_timeline($timeline_sn = '')
     $sql = "select * from `" . $xoopsDB->prefix("tad_timeline") . "`
     where `timeline_sn` = '{$timeline_sn}'";
     $result = $xoopsDB->query($sql)
-    or web_error($sql);
+    or web_error($sql, __FILE__, _LINE__);
     $data = $xoopsDB->fetchArray($result);
     return $data;
 }
@@ -205,7 +205,7 @@ function insert_tad_timeline()
         '{$text_text}',
         '{$uid}'
     )";
-    $xoopsDB->query($sql) or web_error($sql);
+    $xoopsDB->query($sql) or web_error($sql, __FILE__, _LINE__);
 
     //取得最後新增資料的流水編號
     $timeline_sn = $xoopsDB->getInsertId();
@@ -255,7 +255,7 @@ function update_tad_timeline($timeline_sn = '')
        `text_text` = '{$text_text}',
        `timeline_uid` = '{$uid}'
     where `timeline_sn` = '$timeline_sn'";
-    $xoopsDB->queryF($sql) or web_error($sql);
+    $xoopsDB->queryF($sql) or web_error($sql, __FILE__, _LINE__);
 
     include_once XOOPS_ROOT_PATH . "/modules/tadtools/TadUpFiles.php";
     $TadUpFiles = new TadUpFiles("tad_timeline");
@@ -281,7 +281,7 @@ function delete_tad_timeline($timeline_sn = '')
 
     $sql = "delete from `" . $xoopsDB->prefix("tad_timeline") . "`
     where `timeline_sn` = '{$timeline_sn}'";
-    $xoopsDB->queryF($sql) or web_error($sql);
+    $xoopsDB->queryF($sql) or web_error($sql, __FILE__, _LINE__);
 
     include_once XOOPS_ROOT_PATH . "/modules/tadtools/TadUpFiles.php";
     $TadUpFiles = new TadUpFiles("tad_timeline");
@@ -323,7 +323,7 @@ function list_tad_timeline()
     $total   = $PageBar['total'];
 
     $result = $xoopsDB->query($sql)
-    or web_error($sql);
+    or web_error($sql, __FILE__, _LINE__);
 
     $all_content = '';
     $i           = 0;
