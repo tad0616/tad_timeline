@@ -298,7 +298,6 @@ function list_tad_timeline()
     //判斷目前使用者是否有：發布權限
     $edit_event = power_chk("tad_timeline", 1);
     $xoopsTpl->assign('edit_event', $edit_event);
-    $delete_tad_timeline_func = '';
     if ($edit_event) {
         tad_timeline_form();
         //刪除確認的JS
@@ -307,7 +306,7 @@ function list_tad_timeline()
         }
         include_once XOOPS_ROOT_PATH . "/modules/tadtools/sweet_alert.php";
         $sweet_alert_obj          = new sweet_alert();
-        $delete_tad_timeline_func = $sweet_alert_obj->render('delete_tad_timeline_func',
+        $sweet_alert_obj->render('delete_tad_timeline_func',
             "{$_SERVER['PHP_SELF']}?op=delete_tad_timeline&timeline_sn=", "timeline_sn");
     }
     $myts = MyTextSanitizer::getInstance();
@@ -325,7 +324,7 @@ function list_tad_timeline()
     $result = $xoopsDB->query($sql)
     or web_error($sql, __FILE__, __LINE__);
 
-    $all_content = '';
+    $all_content = array();
     $i           = 0;
     while ($all = $xoopsDB->fetchArray($result)) {
         //以下會產生這些變數： $timeline_sn, $year, $month, $day, $text_headline, $text_text, $timeline_uid
@@ -354,7 +353,6 @@ function list_tad_timeline()
     }
 
     $edit_event               = power_chk("tad_timeline", 1);
-    $delete_tad_timeline_func = '';
     if ($edit_event) {
         //刪除確認的JS
         if (!file_exists(XOOPS_ROOT_PATH . "/modules/tadtools/sweet_alert.php")) {
@@ -362,7 +360,7 @@ function list_tad_timeline()
         }
         include_once XOOPS_ROOT_PATH . "/modules/tadtools/sweet_alert.php";
         $sweet_alert_obj          = new sweet_alert();
-        $delete_tad_timeline_func = $sweet_alert_obj->render('delete_tad_timeline_func',
+        $sweet_alert_obj->render('delete_tad_timeline_func',
             "{$_SERVER['PHP_SELF']}?op=delete_tad_timeline&timeline_sn=", "timeline_sn");
 
     }

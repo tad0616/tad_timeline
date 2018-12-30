@@ -15,8 +15,9 @@ function tad_timeline_list($options)
         $sql        = "SELECT * FROM `" . $xoopsDB->prefix("tad_timeline") . "` ORDER BY `year`, `month`, `day`";
         $result     = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
 
-        $all_content = '';
-        $i           = 0;
+        $all_content = array();
+
+        $i = 0;
         while ($all = $xoopsDB->fetchArray($result)) {
             //以下會產生這些變數： $timeline_sn, $year, $month, $day, $text_headline, $text_text, $timeline_uid
             foreach ($all as $k => $v) {
@@ -94,29 +95,22 @@ function tad_timeline_list_edit($options)
     $checked_0_1 = ($options[0] == 'list') ? 'checked' : '';
 
     $form = "
-    <table>
-      <tr>
-        <th style='width: 100px;'>
-          <!--顯示模式-->
-          " . _MB_TAD_TIMELINE_LIST_OPT0 . "
-        </th>
-        <td>
-            <input type='radio' name='options[0]' value='timeline' $checked_0_0> " . _MB_TAD_TIMELINE_LIST_OPT0_VAL0 . "
-            <input type='radio' name='options[0]' value='list' $checked_0_1> " . _MB_TAD_TIMELINE_LIST_OPT0_VAL1 . "
-        </td>
-      </tr>
-      <tr>
-        <th style='width: 100px;'>
-          <!--預設事件-->
-          " . _MB_TAD_TIMELINE_LIST_OPT1 . "
-        </th>
-        <td>
-            <select name='options[1]' >
-              {$opt}
-            </select>
-        </td>
-      </tr>
-    </table>
-    ";
+    <ol class='my-form'>
+        <li class='my-row'>
+            <lable class='my-label'>" . _MB_TAD_TIMELINE_LIST_OPT0 . "</lable>
+            <div class='my-content'>
+                <input type='radio' name='options[0]' value='timeline' $checked_0_0> " . _MB_TAD_TIMELINE_LIST_OPT0_VAL0 . "
+                <input type='radio' name='options[0]' value='list' $checked_0_1> " . _MB_TAD_TIMELINE_LIST_OPT0_VAL1 . "
+            </div>
+        </li>
+        <li class='my-row'>
+            <lable class='my-label'>" . _MB_TAD_TIMELINE_LIST_OPT1 . "</lable>
+            <div class='my-content'>
+                <select name='options[1]' class='my-input'>
+                {$opt}
+                </select>
+            </div>
+        </li>
+    </ol>";
     return $form;
 }

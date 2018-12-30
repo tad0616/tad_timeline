@@ -30,13 +30,13 @@ $i++;
 $adminmenu[$i]['title'] = _MI_TAD_TIMELINE_ADMENU1;
 $adminmenu[$i]['link']  = 'admin/main.php';
 $adminmenu[$i]['desc']  = _MI_TAD_TIMELINE_ADMENU1_DESC;
-$adminmenu[$i]['icon']  = "{$icon_dir}button.png";
+$adminmenu[$i]['icon']  = "{$icon_dir}timeline.png";
 
 $i++;
 $adminmenu[$i]['title'] = _MI_TADTIMELI_GROUPPERM;
 $adminmenu[$i]['link']  = 'admin/groupperm.php';
 $adminmenu[$i]['desc']  = _MI_TADTIMELI_GROUPPERM_DESC;
-$adminmenu[$i]['icon']  = "{$icon_dir}button.png";
+$adminmenu[$i]['icon']  = "{$icon_dir}keys.png";
 
 $i++;
 $adminmenu[$i]['title'] = _MI_TAD_ADMIN_ABOUT;

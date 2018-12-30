@@ -1,8 +1,9 @@
 Tad Timeline 1.4 (released on 2019-01-01)
 ==============================================
 1.Support BootStarp4
-2.Support PHP 7.1
+2.Support PHP 7.3
 3.Attached support panoramic picture
+4.Support MySQL database strict mode
 
 
 Tad Timeline 1.3 (released on 2018-09-03)
