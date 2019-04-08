@@ -17,8 +17,9 @@
  * @version    $Id $
  **/
 
-
-echo "<div align=\"center\"><a href=\"https://xoops.org\" target=\"_blank\"><img src=\"../images/admin/xoopsmicrobutton.gif\" alt=\"XOOPS\" title=\"XOOPS\"></a></div>";
-echo "<div class='center smallsmall italic pad5'><strong>" . $xoopsModule->getVar("name") . "</strong> is maintained by the <a class='tooltip' rel='external' href='https://xoops.org/' title='Visit XOOPS Community'>XOOPS Community</a></div>";
-
-xoops_cp_footer();
+define('_MB_TAD_TIMELINE_LIST_OPT0', '顯示模式');
+define('_MB_TAD_TIMELINE_LIST_OPT0_VAL0', '時間軸');
+define('_MB_TAD_TIMELINE_LIST_OPT0_VAL1', '列表');
+define('_MB_TAD_TIMELINE_LIST_OPT1', '預設事件');
+define('_MB_TAD_TIMELINE_EVENT_DATE', '事件日期');
+define('_MB_TAD_TIMELINE_TEXT_HEADLINE', '事件標題');
