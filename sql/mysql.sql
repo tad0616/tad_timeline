@@ -7,7 +7,7 @@ CREATE TABLE `tad_timeline` (
   `text_text` text NOT NULL COMMENT '事件說明',
   `timeline_uid` mediumint(9) unsigned NOT NULL default '0' COMMENT '發布者',
 PRIMARY KEY  (`timeline_sn`)
-) ENGINE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE `tad_timeline_files_center` (
@@ -24,6 +24,9 @@ CREATE TABLE `tad_timeline_files_center` (
   `original_filename` varchar(255) NOT NULL default '' COMMENT '檔案名稱',
   `hash_filename` varchar(255) NOT NULL default '' COMMENT '加密檔案名稱',
   `sub_dir` varchar(255) NOT NULL default '' COMMENT '檔案子路徑',
+  `upload_date` datetime NOT NULL COMMENT '上傳時間',
+  `uid` mediumint(8) unsigned NOT NULL default 0 COMMENT '上傳者',
+  `tag` varchar(255) NOT NULL default '' COMMENT '註記',
   PRIMARY KEY (`files_sn`)
-) ENGINE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

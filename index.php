@@ -9,7 +9,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright  The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright  XOOPS Project (https://xoops.org)
  * @license    http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package    Events
  * @since      2.5
@@ -32,7 +32,6 @@ function get_start_at_slide($def_timeline_sn = "")
     //判斷目前使用者是否有：發布權限
     $edit_event = power_chk("tad_timeline", 1);
     $xoopsTpl->assign('edit_event', $edit_event);
-    $delete_tad_timeline_func = '';
     if ($edit_event) {
         tad_timeline_form();
         //刪除確認的JS
@@ -40,16 +39,16 @@ function get_start_at_slide($def_timeline_sn = "")
             redirect_header("index.php", 3, _MA_NEED_TADTOOLS);
         }
         include_once XOOPS_ROOT_PATH . "/modules/tadtools/sweet_alert.php";
-        $sweet_alert_obj          = new sweet_alert();
-        $delete_tad_timeline_func = $sweet_alert_obj->render('delete_tad_timeline_func',
+        $sweet_alert_obj = new sweet_alert();
+        $sweet_alert_obj->render('delete_tad_timeline_func',
             "{$_SERVER['PHP_SELF']}?op=delete_tad_timeline&timeline_sn=", "timeline_sn");
     }
 
-    $sql    = "select timeline_sn from `" . $xoopsDB->prefix("tad_timeline") . "` ORDER BY  `year` , `month` , `day`";
-    $result = $xoopsDB->query($sql) or web_error($sql);
+    $sql    = "SELECT timeline_sn FROM `" . $xoopsDB->prefix("tad_timeline") . "` ORDER BY  `year` , `month` , `day`";
+    $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
 
     $i            = 1;
-    $order        = "";
+    $order        = array();
     $have_content = false;
     while (list($timeline_sn) = $xoopsDB->fetchRow($result)) {
         $order[$timeline_sn] = $i;

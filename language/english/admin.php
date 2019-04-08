@@ -9,7 +9,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright  The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright  XOOPS Project (https://xoops.org)
  * @license    http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package    Events
  * @since      2.5
@@ -18,24 +18,24 @@
  **/
 
 include_once "../../tadtools/language/{$xoopsConfig['language']}/admin_common.php";
-define('_TAD_NEED_TADTOOLS', ' 需要 tadtools 模組，可至<a href="http://www.tad0616.net/modules/tad_uploader/index.php?of_cat_sn=50" target="_blank">Tad教材網</a>下載。');
+define('_TAD_NEED_TADTOOLS', 'This module needs TadTools module. You can download TadTools from <a href="http://www.tad0616.net/modules/tad_uploader/index.php?of_cat_sn=50" target="_blank">Tad Textbook </a>. ');
 
 //tad_timeline-list
-define('_MA_TAD_TIMELINE_EVENT_SN', '事件編號');
-define('_MA_TAD_TIMELINE_YEAR', '事件年');
-define('_MA_TAD_TIMELINE_MONTH', '事件月');
-define('_MA_TAD_TIMELINE_DAY', '事件日');
-define('_MA_TAD_TIMELINE_Y', '年');
-define('_MA_TAD_TIMELINE_M', '月');
-define('_MA_TAD_TIMELINE_D', '日');
-define('_MA_TAD_TIMELINE_TEXT_HEADLINE', '事件標題');
-define('_MA_TAD_TIMELINE_TEXT_TEXT', '事件說明');
-define('_MA_TAD_TIMELINE_EVENT_UID', '發布者');
-define('_MA_TAD_TIMELINE_UP_EVENT_SN', '上傳');
-define('_MA_TAD_TIMELINE_SHOW_EVENT_SN_FILES', '上傳');
-define('_MA_TAD_TIMELINE_JOSN_TITLE', '重要紀事');
-define('_MA_TAD_TIMELINE_JOSN_TEXT', '重要紀事');
+define('_MA_TAD_TIMELINE_EVENT_SN', 'event number');
+define('_MA_TAD_TIMELINE_YEAR', 'event year');
+define('_MA_TAD_TIMELINE_MONTH', 'event month');
+define('_MA_TAD_TIMELINE_DAY', 'event day');
+define('_MA_TAD_TIMELINE_Y', 'year');
+define('_MA_TAD_TIMELINE_M', 'month');
+define('_MA_TAD_TIMELINE_D', 'day');
+define('_MA_TAD_TIMELINE_TEXT_HEADLINE', 'event title');
+define('_MA_TAD_TIMELINE_TEXT_TEXT', 'event description');
+define('_MA_TAD_TIMELINE_EVENT_UID', 'Publisher');
+define('_MA_TAD_TIMELINE_UP_EVENT_SN', 'upload');
+define('_MA_TAD_TIMELINE_SHOW_EVENT_SN_FILES', 'Upload');
+define('_MA_TAD_TIMELINE_JOSN_TITLE', 'Important Chronicle');
+define('_MA_TAD_TIMELINE_JOSN_TEXT', 'Important Chronicle');
 
-define('_MA_TADTIMELI_PERM_TITLE', '重要紀事細部權限設定');
-define('_MA_TADTIMELI_PERM_DESC', '請勾選欲開放給群組使用的權限：');
-define('_MA_TADTIMELI_EDIT_EVENT', '可新增、編輯、管理重要紀事');
+define('_MA_TADTIMELI_PERM_TITLE', 'Important Chronicle Details');
+define('_MA_TADTIMELI_PERM_DESC', 'check the permissions you want to open to the group:');
+define('_MA_TADTIMELI_EDIT_EVENT', 'Add, edit, manage important Chronicle');

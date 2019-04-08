@@ -9,7 +9,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright  The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright  XOOPS Project (https://xoops.org)
  * @license    http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package    Events
  * @since      2.5
@@ -30,13 +30,13 @@ $i++;
 $adminmenu[$i]['title'] = _MI_TAD_TIMELINE_ADMENU1;
 $adminmenu[$i]['link']  = 'admin/main.php';
 $adminmenu[$i]['desc']  = _MI_TAD_TIMELINE_ADMENU1_DESC;
-$adminmenu[$i]['icon']  = "{$icon_dir}button.png";
+$adminmenu[$i]['icon']  = "{$icon_dir}timeline.png";
 
 $i++;
 $adminmenu[$i]['title'] = _MI_TADTIMELI_GROUPPERM;
 $adminmenu[$i]['link']  = 'admin/groupperm.php';
 $adminmenu[$i]['desc']  = _MI_TADTIMELI_GROUPPERM_DESC;
-$adminmenu[$i]['icon']  = "{$icon_dir}button.png";
+$adminmenu[$i]['icon']  = "{$icon_dir}keys.png";
 
 $i++;
 $adminmenu[$i]['title'] = _MI_TAD_ADMIN_ABOUT;

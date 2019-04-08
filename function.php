@@ -9,7 +9,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright  The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright  XOOPS Project (https://xoops.org)
  * @license    http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package    Events
  * @since      2.5
@@ -28,7 +28,7 @@ include_once XOOPS_ROOT_PATH . "/modules/tadtools/tad_function.php";
 //tad_timeline編輯表單
 function tad_timeline_form($timeline_sn = '')
 {
-    global $xoopsDB, $xoopsTpl, $isAdmin;
+    global $xoopsDB, $xoopsTpl, $isAdmin, $xoopsUser;
     $edit_event = power_chk("tad_timeline", 1);
     if (!$edit_event) {
         redirect_header($_SERVER['PHP_SELF'], 3, _TAD_PERMISSION_DENIED);
@@ -103,9 +103,9 @@ function mk_json()
     $json['timeline']['text']      = _MD_TAD_TIMELINE_JOSN_TEXT;
     $json['timeline']['startDate'] = date("Y,m,d");
 
-    $sql    = "select * from `" . $xoopsDB->prefix("tad_timeline") . "` order by year, month, day";
+    $sql    = "SELECT * FROM `" . $xoopsDB->prefix("tad_timeline") . "` ORDER BY year, month, day";
     $result = $xoopsDB->query($sql)
-    or web_error($sql);
+    or web_error($sql, __FILE__, __LINE__);
     $i = 0;
     while ($all = $xoopsDB->fetchArray($result)) {
         //以下會產生這些變數： $timeline_sn, $year, $month, $day, $text_headline, $text_text, $timeline_uid
@@ -114,9 +114,9 @@ function mk_json()
         }
 
         //過濾讀出的變數值
-        $year          = intval($year);
-        $month         = intval($month);
-        $day           = intval($day);
+        $year          = (int) $year;
+        $month         = (int) $month;
+        $day           = (int) $day;
         $text_headline = strip_tags($text_headline);
         $text_text     = strip_tags($text_text);
 
@@ -141,7 +141,9 @@ function mk_json()
     $json_code = json_encode($json);
 
     $file = XOOPS_ROOT_PATH . '/uploads/tad_timeline/tad_timeline.json';
-    file_put_contents($file, $json_code);
+    if (!file_put_contents($file, $json_code)) {
+        redirect_header("index.php", 3, _MD_TAD_TIMELINE_JSON_ERROR);
+    }
 }
 
 //以流水號取得某筆tad_timeline資料
@@ -156,7 +158,7 @@ function get_tad_timeline($timeline_sn = '')
     $sql = "select * from `" . $xoopsDB->prefix("tad_timeline") . "`
     where `timeline_sn` = '{$timeline_sn}'";
     $result = $xoopsDB->query($sql)
-    or web_error($sql);
+    or web_error($sql, __FILE__, __LINE__);
     $data = $xoopsDB->fetchArray($result);
     return $data;
 }
@@ -180,13 +182,13 @@ function insert_tad_timeline()
 
     $myts = MyTextSanitizer::getInstance();
 
-    $timeline_sn   = intval($_POST['timeline_sn']);
+    $timeline_sn   = (int) $_POST['timeline_sn'];
     $year          = $myts->addSlashes($_POST['year']);
     $month         = $myts->addSlashes($_POST['month']);
     $day           = $myts->addSlashes($_POST['day']);
     $text_headline = $myts->addSlashes($_POST['text_headline']);
     $text_text     = $myts->addSlashes($_POST['text_text']);
-    $timeline_uid  = intval($_POST['timeline_uid']);
+    $timeline_uid  = (int) $_POST['timeline_uid'];
 
     $sql = "insert into `" . $xoopsDB->prefix("tad_timeline") . "` (
         `year`,
@@ -203,7 +205,7 @@ function insert_tad_timeline()
         '{$text_text}',
         '{$uid}'
     )";
-    $xoopsDB->query($sql) or web_error($sql);
+    $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
 
     //取得最後新增資料的流水編號
     $timeline_sn = $xoopsDB->getInsertId();
@@ -237,13 +239,13 @@ function update_tad_timeline($timeline_sn = '')
 
     $myts = MyTextSanitizer::getInstance();
 
-    $timeline_sn   = intval($_POST['timeline_sn']);
+    $timeline_sn   = (int) $_POST['timeline_sn'];
     $year          = $myts->addSlashes($_POST['year']);
     $month         = $myts->addSlashes($_POST['month']);
     $day           = $myts->addSlashes($_POST['day']);
     $text_headline = $myts->addSlashes($_POST['text_headline']);
     $text_text     = $myts->addSlashes($_POST['text_text']);
-    $timeline_uid  = intval($_POST['timeline_uid']);
+    $timeline_uid  = (int) $_POST['timeline_uid'];
 
     $sql = "update `" . $xoopsDB->prefix("tad_timeline") . "` set
        `year` = '{$year}',
@@ -253,7 +255,7 @@ function update_tad_timeline($timeline_sn = '')
        `text_text` = '{$text_text}',
        `timeline_uid` = '{$uid}'
     where `timeline_sn` = '$timeline_sn'";
-    $xoopsDB->queryF($sql) or web_error($sql);
+    $xoopsDB->queryF($sql) or web_error($sql, __FILE__, __LINE__);
 
     include_once XOOPS_ROOT_PATH . "/modules/tadtools/TadUpFiles.php";
     $TadUpFiles = new TadUpFiles("tad_timeline");
@@ -279,7 +281,7 @@ function delete_tad_timeline($timeline_sn = '')
 
     $sql = "delete from `" . $xoopsDB->prefix("tad_timeline") . "`
     where `timeline_sn` = '{$timeline_sn}'";
-    $xoopsDB->queryF($sql) or web_error($sql);
+    $xoopsDB->queryF($sql) or web_error($sql, __FILE__, __LINE__);
 
     include_once XOOPS_ROOT_PATH . "/modules/tadtools/TadUpFiles.php";
     $TadUpFiles = new TadUpFiles("tad_timeline");
@@ -296,7 +298,6 @@ function list_tad_timeline()
     //判斷目前使用者是否有：發布權限
     $edit_event = power_chk("tad_timeline", 1);
     $xoopsTpl->assign('edit_event', $edit_event);
-    $delete_tad_timeline_func = '';
     if ($edit_event) {
         tad_timeline_form();
         //刪除確認的JS
@@ -305,14 +306,14 @@ function list_tad_timeline()
         }
         include_once XOOPS_ROOT_PATH . "/modules/tadtools/sweet_alert.php";
         $sweet_alert_obj          = new sweet_alert();
-        $delete_tad_timeline_func = $sweet_alert_obj->render('delete_tad_timeline_func',
+        $sweet_alert_obj->render('delete_tad_timeline_func',
             "{$_SERVER['PHP_SELF']}?op=delete_tad_timeline&timeline_sn=", "timeline_sn");
     }
     $myts = MyTextSanitizer::getInstance();
 
     include_once XOOPS_ROOT_PATH . "/modules/tadtools/TadUpFiles.php";
     $TadUpFiles = new TadUpFiles("tad_timeline");
-    $sql        = "select * from `" . $xoopsDB->prefix("tad_timeline") . "` order by `year`, `month`, `day`";
+    $sql        = "SELECT * FROM `" . $xoopsDB->prefix("tad_timeline") . "` ORDER BY `year`, `month`, `day`";
 
     //getPageBar($原sql語法, 每頁顯示幾筆資料, 最多顯示幾個頁數選項);
     $PageBar = getPageBar($sql, 20, 10);
@@ -321,9 +322,9 @@ function list_tad_timeline()
     $total   = $PageBar['total'];
 
     $result = $xoopsDB->query($sql)
-    or web_error($sql);
+    or web_error($sql, __FILE__, __LINE__);
 
-    $all_content = '';
+    $all_content = array();
     $i           = 0;
     while ($all = $xoopsDB->fetchArray($result)) {
         //以下會產生這些變數： $timeline_sn, $year, $month, $day, $text_headline, $text_text, $timeline_uid
@@ -352,7 +353,6 @@ function list_tad_timeline()
     }
 
     $edit_event               = power_chk("tad_timeline", 1);
-    $delete_tad_timeline_func = '';
     if ($edit_event) {
         //刪除確認的JS
         if (!file_exists(XOOPS_ROOT_PATH . "/modules/tadtools/sweet_alert.php")) {
@@ -360,7 +360,7 @@ function list_tad_timeline()
         }
         include_once XOOPS_ROOT_PATH . "/modules/tadtools/sweet_alert.php";
         $sweet_alert_obj          = new sweet_alert();
-        $delete_tad_timeline_func = $sweet_alert_obj->render('delete_tad_timeline_func',
+        $sweet_alert_obj->render('delete_tad_timeline_func',
             "{$_SERVER['PHP_SELF']}?op=delete_tad_timeline&timeline_sn=", "timeline_sn");
 
     }

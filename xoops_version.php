@@ -9,7 +9,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright  The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright  XOOPS Project (https://xoops.org)
  * @license    http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package    Events
  * @since      2.5
@@ -21,7 +21,7 @@ $modversion = array();
 
 //---模組基本資訊---//
 $modversion['name']        = _MI_TAD_TIMELINE_NAME;
-$modversion['version']     = '1.1';
+$modversion['version']     = '1.4';
 $modversion['description'] = _MI_TAD_TIMELINE_DESC;
 $modversion['author']      = _MI_TAD_TIMELINE_AUTHOR;
 $modversion['credits']     = _MI_TAD_TIMELINE_CREDITS;
@@ -31,14 +31,14 @@ $modversion['image']       = "images/logo.png";
 $modversion['dirname']     = basename(__DIR__);
 
 //---模組狀態資訊---//
-$modversion['status_version']      = '1.1';
-$modversion['release_date']        = '2017-03-01';
+$modversion['status_version']      = '1.4';
+$modversion['release_date']        = '2019-01-01';
 $modversion['module_website_url']  = 'http://www.tad0616.net';
 $modversion['module_website_name'] = _MI_TAD_TIMELINE_AUTHOR_WEB;
 $modversion['module_status']       = 'release';
 $modversion['author_website_url']  = 'http://www.tad0616.net';
 $modversion['author_website_name'] = _MI_TAD_TIMELINE_AUTHOR_WEB;
-$modversion['min_php']             = '5.3.7';
+$modversion['min_php']             = '5.4';
 $modversion['min_xoops']           = '2.5';
 
 //---paypal資訊---//

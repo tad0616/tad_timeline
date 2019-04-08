@@ -9,7 +9,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright  The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright  XOOPS Project (https://xoops.org)
  * @license    http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package    Events
  * @since      2.5
@@ -41,3 +41,4 @@ define('_MD_TAD_TIMELINE_LIST_MODE', '列表模式');
 define('_MD_TAD_TIMELINE_TIMELINE_MODE', '時間軸模式');
 
 define('_MD_TAD_TIMELINE_EMPTY', '尚無資料');
+define('_MD_TAD_TIMELINE_JSON_ERROR', 'json 寫入失敗（請檢查是否有寫入權限）');
