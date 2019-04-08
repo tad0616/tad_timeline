@@ -20,6 +20,7 @@
       <{$fancybox_code}>
 
       <!-- BEGIN TimelineJS -->
+      <link rel="stylesheet" type="text/css" href="<{$xoops_url}>/modules/tad_timeline/class/timeline/css/timeline.css">
       <script type="text/javascript" src="<{$xoops_url}>/modules/tad_timeline/class/timeline/js/storyjs-embed.js"></script>
       <script>
         $(document).ready(function() {
@@ -38,12 +39,7 @@
         });
       </script>
       <!-- END TimelineJS -->
-
-      <div class="row">
-        <div class="col-md-12">
-          <div id="my-timeline"></div>
-        </div>
-      </div>
+      <div id="my-timeline"></div>
     <{else}>
       <div class="jumbotron text-center">
         <h1><{$smarty.const._MD_TAD_TIMELINE_EMPTY}></h1>
