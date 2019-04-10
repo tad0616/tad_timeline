@@ -20,16 +20,16 @@
 function xoops_module_install_tad_timeline(&$module)
 {
 
-    mk_dir(XOOPS_ROOT_PATH . "/uploads/tad_timeline");
-    mk_dir(XOOPS_ROOT_PATH . "/uploads/tad_timeline/file");
-    mk_dir(XOOPS_ROOT_PATH . "/uploads/tad_timeline/image");
-    mk_dir(XOOPS_ROOT_PATH . "/uploads/tad_timeline/image/.thumbs");
+    tad_timeline_mk_dir(XOOPS_ROOT_PATH . "/uploads/tad_timeline");
+    tad_timeline_mk_dir(XOOPS_ROOT_PATH . "/uploads/tad_timeline/file");
+    tad_timeline_mk_dir(XOOPS_ROOT_PATH . "/uploads/tad_timeline/image");
+    tad_timeline_mk_dir(XOOPS_ROOT_PATH . "/uploads/tad_timeline/image/.thumbs");
 
     return true;
 }
 
 //建立目錄
-function mk_dir($dir = "")
+function tad_timeline_mk_dir($dir = "")
 {
     //若無目錄名稱秀出警告訊息
     if (empty($dir)) {
