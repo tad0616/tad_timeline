@@ -38,7 +38,7 @@ function tad_timeline_form($timeline_sn = '')
     if (!empty($timeline_sn)) {
         $DBV = get_tad_timeline($timeline_sn);
     } else {
-        $DBV = array();
+        $DBV = [];
     }
 
     //預設值設定
@@ -324,7 +324,7 @@ function list_tad_timeline()
     $result = $xoopsDB->query($sql)
     or web_error($sql, __FILE__, __LINE__);
 
-    $all_content = array();
+    $all_content = [];
     $i           = 0;
     while ($all = $xoopsDB->fetchArray($result)) {
         //以下會產生這些變數： $timeline_sn, $year, $month, $day, $text_headline, $text_text, $timeline_uid

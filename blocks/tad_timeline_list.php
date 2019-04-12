@@ -15,7 +15,7 @@ function tad_timeline_list($options)
         $sql        = "SELECT * FROM `" . $xoopsDB->prefix("tad_timeline") . "` ORDER BY `year`, `month`, `day`";
         $result     = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
 
-        $all_content = array();
+        $all_content = [];
 
         $i = 0;
         while ($all = $xoopsDB->fetchArray($result)) {
@@ -51,7 +51,7 @@ function tad_timeline_list($options)
         $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
 
         $i     = 1;
-        $order = array();
+        $order = [];
         while (list($timeline_sn) = $xoopsDB->fetchRow($result)) {
             $order[$timeline_sn] = $i;
             $have_content        = true;

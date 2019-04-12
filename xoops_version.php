@@ -17,7 +17,7 @@
  * @version    $Id $
  **/
 
-$modversion = array();
+$modversion = [];
 
 //---模組基本資訊---//
 $modversion['name']        = _MI_TAD_TIMELINE_NAME;
@@ -42,7 +42,7 @@ $modversion['min_php']             = '5.4';
 $modversion['min_xoops']           = '2.5';
 
 //---paypal資訊---//
-$modversion['paypal']                  = array();
+$modversion['paypal']                  = [];
 $modversion['paypal']['business']      = 'tad0616@gmail.com';
 $modversion['paypal']['item_name']     = 'Donation :' . _MI_TAD_TIMELINE_AUTHOR;
 $modversion['paypal']['amount']        = 0;
@@ -107,4 +107,4 @@ $modversion['config'][$i]['description'] = '_MI_TADTIMELI_DEFAULT_DISPLAY_MODE_D
 $modversion['config'][$i]['formtype']    = 'select';
 $modversion['config'][$i]['valuetype']   = 'text';
 $modversion['config'][$i]['default']     = 'timeline';
-$modversion['config'][$i]['options']     = array(_MI_TADTIMELI_DEFAULT_DISPLAY_MODE_KEY1 => 'timeline', _MI_TADTIMELI_DEFAULT_DISPLAY_MODE_KEY2 => 'list');
+$modversion['config'][$i]['options']     = [_MI_TADTIMELI_DEFAULT_DISPLAY_MODE_KEY1 => 'timeline', _MI_TADTIMELI_DEFAULT_DISPLAY_MODE_KEY2 => 'list'];

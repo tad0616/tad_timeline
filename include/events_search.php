@@ -23,7 +23,7 @@ function tad_timeline_search($queryarray, $andor, $limit, $offset, $userid)
     }
     $sql    .= "ORDER BY  `year` DESC , `month` DESC , `day` DESC";
     $result = $xoopsDB->query($sql, $limit, $offset);
-    $ret    = array();
+    $ret    = [];
     $i      = 0;
 
     while ($myrow = $xoopsDB->fetchArray($result)) {
