@@ -16,7 +16,6 @@
  * @author     tad
  * @version    $Id $
  **/
-
 define('_MB_TAD_TIMELINE_LIST_OPT0', 'display mode');
 define('_MB_TAD_TIMELINE_LIST_OPT0_VAL0', 'timeline');
 define('_MB_TAD_TIMELINE_LIST_OPT0_VAL1', 'list');

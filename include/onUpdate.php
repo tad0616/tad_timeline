@@ -16,7 +16,6 @@
  * @author     tad
  * @version    $Id $
  **/
-
 use XoopsModules\Tad_timeline\Utility;
 
 function xoops_module_update_tad_timeline($module, $old_version)

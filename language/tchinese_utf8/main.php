@@ -16,7 +16,6 @@
  * @author     tad
  * @version    $Id $
  **/
-
 define('_TAD_NEED_TADTOOLS', ' 需要 tadtools 模組，可至<a href="http://www.tad0616.net/modules/tad_uploader/index.php?of_cat_sn=50" target="_blank">Tad教材網</a>下載。');
 define('_MD_TAD_TIMELINE_SMNAME1', '重要紀事');
 define('_MD_TAD_TIMELINE_EDIT', '管理重要紀事');
