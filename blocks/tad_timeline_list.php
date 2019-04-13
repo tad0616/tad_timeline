@@ -7,7 +7,7 @@ function tad_timeline_list($options)
 
     $have_content = false;
     $block['mode'] = $options[0];
-    if ('list' == $options[0]) {
+    if ('list' === $options[0]) {
         $myts = MyTextSanitizer::getInstance();
         include_once XOOPS_ROOT_PATH . '/modules/tadtools/TadUpFiles.php';
         $TadUpFiles = new TadUpFiles('tad_timeline');
@@ -90,8 +90,8 @@ function tad_timeline_list_edit($options)
     }
 
     //"顯示模式"預設值
-    $checked_0_0 = ('timeline' == $options[0]) ? 'checked' : '';
-    $checked_0_1 = ('list' == $options[0]) ? 'checked' : '';
+    $checked_0_0 = ('timeline' === $options[0]) ? 'checked' : '';
+    $checked_0_1 = ('list' === $options[0]) ? 'checked' : '';
 
     $form = "
     <ol class='my-form'>

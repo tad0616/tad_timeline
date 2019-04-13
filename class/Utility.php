@@ -56,7 +56,7 @@ class Utility
         }
 
         while ($file = readdir($dir_handle)) {
-            if ('.' != $file && '..' != $file) {
+            if ('.' !== $file && '..' !== $file) {
                 if (!is_dir($dirname . '/' . $file)) {
                     unlink($dirname . '/' . $file);
                 } else {
@@ -79,7 +79,7 @@ class Utility
             }
             $d = dir($source);
             while (false !== ($entry = $d->read())) {
-                if ('.' == $entry || '..' == $entry) {
+                if ('.' === $entry || '..' === $entry) {
                     continue;
                 }
 
@@ -156,7 +156,7 @@ class Utility
         $sql = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '" . $xoopsDB->prefix('tad_timeline') . "' AND COLUMN_NAME = 'year'";
         $result = $xoopsDB->query($sql);
         list($type) = $xoopsDB->fetchRow($result);
-        if ('year' == $type) {
+        if ('year' === $type) {
             return true;
         }
 

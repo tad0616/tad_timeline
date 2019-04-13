@@ -118,7 +118,7 @@ switch ($op) {
         get_start_at_slide($timeline_sn);
         break;
     default:
-        if ('list' == $xoopsModuleConfig['default_display_mode'] and empty($timeline_sn)) {
+        if ('list' === $xoopsModuleConfig['default_display_mode'] and empty($timeline_sn)) {
             header("location: {$_SERVER['PHP_SELF']}?op=list_tad_timeline");
             exit;
         }
