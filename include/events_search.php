@@ -9,9 +9,9 @@ function tad_timeline_search($queryarray, $andor, $limit, $offset, $userid)
         }
         $queryarray = $arr;
     }
-    $sql = "SELECT `timeline_sn`, `text_headline`, `year`, `month`, `day`, `timeline_uid` FROM " . $xoopsDB->prefix("tad_timeline") . " WHERE 1";
-    if ($userid != 0) {
-        $sql .= " AND uid=" . $userid . " ";
+    $sql = 'SELECT `timeline_sn`, `text_headline`, `year`, `month`, `day`, `timeline_uid` FROM ' . $xoopsDB->prefix('tad_timeline') . ' WHERE 1';
+    if (0 != $userid) {
+        $sql .= ' AND uid=' . $userid . ' ';
     }
     if (is_array($queryarray) && $count = count($queryarray)) {
         $sql .= " AND ((`text_headline` LIKE '%{$queryarray[0]}%'  OR `text_text` LIKE '%{$queryarray[0]}%' )";
@@ -19,20 +19,21 @@ function tad_timeline_search($queryarray, $andor, $limit, $offset, $userid)
             $sql .= " $andor ";
             $sql .= "(`text_headline` LIKE '%{$queryarray[$i]}%' OR  `text_text` LIKE '%{$queryarray[$i]}%' )";
         }
-        $sql .= ") ";
+        $sql .= ') ';
     }
-    $sql    .= "ORDER BY  `year` DESC , `month` DESC , `day` DESC";
+    $sql .= 'ORDER BY  `year` DESC , `month` DESC , `day` DESC';
     $result = $xoopsDB->query($sql, $limit, $offset);
-    $ret    = array();
-    $i      = 0;
+    $ret = [];
+    $i = 0;
 
     while ($myrow = $xoopsDB->fetchArray($result)) {
-        $ret[$i]['image'] = "images/application_form.png";
-        $ret[$i]['link']  = "index.php?timeline_sn=" . $myrow['timeline_sn'];
+        $ret[$i]['image'] = 'images/application_form.png';
+        $ret[$i]['link'] = 'index.php?timeline_sn=' . $myrow['timeline_sn'];
         $ret[$i]['title'] = $myrow['text_headline'];
-        $ret[$i]['time']  = strtotime("{$myrow['year']}-{$myrow['month']}--{$myrow['day']}");
-        $ret[$i]['uid']   = $myrow['timeline_uid'];
+        $ret[$i]['time'] = strtotime("{$myrow['year']}-{$myrow['month']}--{$myrow['day']}");
+        $ret[$i]['uid'] = $myrow['timeline_uid'];
         $i++;
     }
+
     return $ret;
 }

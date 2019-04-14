@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Tad_timeline;
+<?php
+
+namespace XoopsModules\Tad_timeline;
 
 /*
  Utility Class Definition
@@ -19,14 +21,13 @@
  * @author       Mamba <mambax7@gmail.com>
  */
 
-
 /**
  * Class Utility
  */
 class Utility
 {
     //建立目錄
-    public static function mk_dir($dir = "")
+    public static function mk_dir($dir = '')
     {
         //若無目錄名稱秀出警告訊息
         if (empty($dir)) {
@@ -55,28 +56,30 @@ class Utility
         }
 
         while ($file = readdir($dir_handle)) {
-            if ($file != "." && $file != "..") {
-                if (!is_dir($dirname . "/" . $file)) {
-                    unlink($dirname . "/" . $file);
+            if ('.' !== $file && '..' !== $file) {
+                if (!is_dir($dirname . '/' . $file)) {
+                    unlink($dirname . '/' . $file);
                 } else {
                     self::delete_directory($dirname . '/' . $file);
                 }
-
             }
         }
         closedir($dir_handle);
         rmdir($dirname);
+
         return true;
     }
 
     //拷貝目錄
-    public static function full_copy($source = "", $target = "")
+    public static function full_copy($source = '', $target = '')
     {
         if (is_dir($source)) {
-            @mkdir($target);
+            if (!mkdir($target) && !is_dir($target)) {
+                throw new \RuntimeException(sprintf('Directory "%s" was not created', $target));
+            }
             $d = dir($source);
             while (false !== ($entry = $d->read())) {
-                if ($entry == '.' || $entry == '..') {
+                if ('.' === $entry || '..' === $entry) {
                     continue;
                 }
 
@@ -92,25 +95,27 @@ class Utility
             copy($source, $target);
         }
     }
-    
+
     public static function rename_win($oldfile, $newfile)
     {
         if (!rename($oldfile, $newfile)) {
             if (copy($oldfile, $newfile)) {
                 unlink($oldfile);
+
                 return true;
             }
+
             return false;
         }
+
         return true;
     }
-
 
     //新增檔案欄位
     public static function chk_fc_tag()
     {
         global $xoopsDB;
-        $sql    = "SELECT count(`tag`) FROM " . $xoopsDB->prefix("tad_timeline_files_center");
+        $sql = 'SELECT count(`tag`) FROM ' . $xoopsDB->prefix('tad_timeline_files_center');
         $result = $xoopsDB->query($sql);
         if (empty($result)) {
             return true;
@@ -122,19 +127,18 @@ class Utility
     public static function go_fc_tag()
     {
         global $xoopsDB;
-        $sql = "ALTER TABLE " . $xoopsDB->prefix("tad_timeline_files_center") . "
+        $sql = 'ALTER TABLE ' . $xoopsDB->prefix('tad_timeline_files_center') . "
     ADD `upload_date` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '上傳時間',
     ADD `uid` MEDIUMINT(8) UNSIGNED NOT NULL DEFAULT 0 COMMENT '上傳者',
     ADD `tag` VARCHAR(255) NOT NULL DEFAULT '' COMMENT '註記'
     ";
-        $xoopsDB->queryF($sql) or redirect_header(XOOPS_URL . "/modules/system/admin.php?fct=modulesadmin", 30, $xoopsDB->error());
+        $xoopsDB->queryF($sql) or redirect_header(XOOPS_URL . '/modules/system/admin.php?fct=modulesadmin', 30, $xoopsDB->error());
     }
 
     //檢查選單檔是否存在
     public static function chk_chk1()
     {
         return file_exists(XOOPS_ROOT_PATH . '/modules/tad_timeline/interface_menu.php');
-
     }
 
     //執行更新
@@ -149,27 +153,23 @@ class Utility
     public static function chk_chk2()
     {
         global $xoopsDB;
-        $sql        = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '" . $xoopsDB->prefix("tad_timeline") . "' AND COLUMN_NAME = 'year'";
-        $result     = $xoopsDB->query($sql);
+        $sql = "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '" . $xoopsDB->prefix('tad_timeline') . "' AND COLUMN_NAME = 'year'";
+        $result = $xoopsDB->query($sql);
         list($type) = $xoopsDB->fetchRow($result);
-        if ($type == 'year') {
+        if ('year' === $type) {
             return true;
         }
 
         return false;
-
     }
 
     //執行更新
     public static function go_update2()
     {
         global $xoopsDB;
-        $sql = "ALTER TABLE `" . $xoopsDB->prefix("tad_timeline") . "` CHANGE `year` `year` char(4) COLLATE 'utf8_general_ci' NOT NULL DEFAULT '0000' AFTER `timeline_sn`;";
+        $sql = 'ALTER TABLE `' . $xoopsDB->prefix('tad_timeline') . "` CHANGE `year` `year` char(4) COLLATE 'utf8_general_ci' NOT NULL DEFAULT '0000' AFTER `timeline_sn`;";
         $xoopsDB->queryF($sql) or redirect_header(XOOPS_URL, 3, $xoopsDB->error());
+
         return true;
     }
-
-
-
-
 }

@@ -5,17 +5,16 @@ function tad_timeline_list($options)
 {
     global $xoopsDB;
 
-    $have_content  = false;
+    $have_content = false;
     $block['mode'] = $options[0];
-    if ($options[0] == "list") {
-
+    if ('list' === $options[0]) {
         $myts = MyTextSanitizer::getInstance();
-        include_once XOOPS_ROOT_PATH . "/modules/tadtools/TadUpFiles.php";
-        $TadUpFiles = new TadUpFiles("tad_timeline");
-        $sql        = "SELECT * FROM `" . $xoopsDB->prefix("tad_timeline") . "` ORDER BY `year`, `month`, `day`";
-        $result     = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
+        include_once XOOPS_ROOT_PATH . '/modules/tadtools/TadUpFiles.php';
+        $TadUpFiles = new TadUpFiles('tad_timeline');
+        $sql = 'SELECT * FROM `' . $xoopsDB->prefix('tad_timeline') . '` ORDER BY `year`, `month`, `day`';
+        $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
 
-        $all_content = array();
+        $all_content = [];
 
         $i = 0;
         while ($all = $xoopsDB->fetchArray($result)) {
@@ -26,35 +25,35 @@ function tad_timeline_list($options)
             $have_content = true;
 
             //過濾讀出的變數值
-            $year          = $myts->htmlSpecialChars($year);
-            $month         = $myts->htmlSpecialChars($month);
-            $day           = $myts->htmlSpecialChars($day);
+            $year = $myts->htmlSpecialChars($year);
+            $month = $myts->htmlSpecialChars($month);
+            $day = $myts->htmlSpecialChars($day);
             $text_headline = $myts->htmlSpecialChars($text_headline);
-            $text_text     = $myts->displayTarea($text_text, 1, 1, 0, 1, 0);
+            $text_text = $myts->displayTarea($text_text, 1, 1, 0, 1, 0);
 
-            $all_content[$i]['timeline_sn']   = $timeline_sn;
-            $all_content[$i]['year']          = $year;
-            $all_content[$i]['month']         = $month;
-            $all_content[$i]['day']           = $day;
+            $all_content[$i]['timeline_sn'] = $timeline_sn;
+            $all_content[$i]['year'] = $year;
+            $all_content[$i]['month'] = $month;
+            $all_content[$i]['day'] = $day;
             $all_content[$i]['text_headline'] = $text_headline;
-            $all_content[$i]['text_text']     = $text_text;
-            $all_content[$i]['timeline_uid']  = $uid_name;
-            $TadUpFiles->set_col("timeline_sn", $timeline_sn, 1);
-            $show_files                   = $TadUpFiles->show_files('up_timeline_sn', true, 'small', true, false, null, null, false);
+            $all_content[$i]['text_text'] = $text_text;
+            $all_content[$i]['timeline_uid'] = $uid_name;
+            $TadUpFiles->set_col('timeline_sn', $timeline_sn, 1);
+            $show_files = $TadUpFiles->show_files('up_timeline_sn', true, 'small', true, false, null, null, false);
             $all_content[$i]['list_file'] = $show_files;
             $i++;
         }
 
         $block['all_content'] = $all_content;
     } else {
-        $sql    = "SELECT timeline_sn FROM `" . $xoopsDB->prefix("tad_timeline") . "` ORDER BY  `year` , `month` , `day`";
+        $sql = 'SELECT timeline_sn FROM `' . $xoopsDB->prefix('tad_timeline') . '` ORDER BY  `year` , `month` , `day`';
         $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
 
-        $i     = 1;
-        $order = array();
+        $i = 1;
+        $order = [];
         while (list($timeline_sn) = $xoopsDB->fetchRow($result)) {
             $order[$timeline_sn] = $i;
-            $have_content        = true;
+            $have_content = true;
             $i++;
         }
         $block['start_at_slide'] = $options[1];
@@ -70,9 +69,9 @@ function tad_timeline_list($options)
         // include_once XOOPS_ROOT_PATH . "/modules/tadtools/fancybox.php";
         // $fancybox               = new fancybox('.media-image', '100%');
         // $block['fancybox_code'] = $fancybox->render(false, true);
-
     }
     $block['have_content'] = $have_content;
+
     return $block;
 }
 
@@ -81,7 +80,7 @@ function tad_timeline_list_edit($options)
 {
     global $xoopsDB;
 
-    $sql    = "SELECT timeline_sn,year,month,day,text_headline FROM `" . $xoopsDB->prefix("tad_timeline") . "` ORDER BY year, month, day";
+    $sql = 'SELECT timeline_sn,year,month,day,text_headline FROM `' . $xoopsDB->prefix('tad_timeline') . '` ORDER BY year, month, day';
     $result = $xoopsDB->query($sql)
     or web_error($sql, __FILE__, __LINE__);
     $opt = '';
@@ -91,8 +90,8 @@ function tad_timeline_list_edit($options)
     }
 
     //"顯示模式"預設值
-    $checked_0_0 = ($options[0] == 'timeline') ? 'checked' : '';
-    $checked_0_1 = ($options[0] == 'list') ? 'checked' : '';
+    $checked_0_0 = ('timeline' === $options[0]) ? 'checked' : '';
+    $checked_0_1 = ('list' === $options[0]) ? 'checked' : '';
 
     $form = "
     <ol class='my-form'>
@@ -112,5 +111,6 @@ function tad_timeline_list_edit($options)
             </div>
         </li>
     </ol>";
+
     return $form;
 }

@@ -16,7 +16,6 @@
  * @author     tad
  * @version    $Id $
  **/
-
 define('_MB_TAD_TIMELINE_LIST_OPT0', '顯示模式');
 define('_MB_TAD_TIMELINE_LIST_OPT0_VAL0', '時間軸');
 define('_MB_TAD_TIMELINE_LIST_OPT0_VAL1', '列表');
