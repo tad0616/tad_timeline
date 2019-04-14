@@ -18,9 +18,9 @@
  **/
 
 /*-----------引入檔案區--------------*/
-include 'header.php';
-$xoopsOption['template_main'] = 'tad_timeline_index.tpl';
-include_once XOOPS_ROOT_PATH . '/header.php';
+require __DIR__ . '/header.php';
+$GLOBALS['xoopsOption']['template_main'] = 'tad_timeline_index.tpl';
+require_once XOOPS_ROOT_PATH . '/header.php';
 
 /*-----------功能函數區--------------*/
 
@@ -37,7 +37,7 @@ function get_start_at_slide($def_timeline_sn = '')
         if (!file_exists(XOOPS_ROOT_PATH . '/modules/tadtools/sweet_alert.php')) {
             redirect_header('index.php', 3, _MA_NEED_TADTOOLS);
         }
-        include_once XOOPS_ROOT_PATH . '/modules/tadtools/sweet_alert.php';
+        require_once XOOPS_ROOT_PATH . '/modules/tadtools/sweet_alert.php';
         $sweet_alert_obj = new sweet_alert();
         $sweet_alert_obj->render(
             'delete_tad_timeline_func',
@@ -52,7 +52,7 @@ function get_start_at_slide($def_timeline_sn = '')
     $i = 1;
     $order = [];
     $have_content = false;
-    while (list($timeline_sn) = $xoopsDB->fetchRow($result)) {
+    while (false !== (list($timeline_sn) = $xoopsDB->fetchRow($result))) {
         $order[$timeline_sn] = $i;
         $have_content = true;
         $i++;
@@ -62,7 +62,7 @@ function get_start_at_slide($def_timeline_sn = '')
     if (!file_exists(XOOPS_ROOT_PATH . '/modules/tadtools/fancybox.php')) {
         redirect_header('index.php', 3, _MA_NEED_TADTOOLS);
     }
-    include_once XOOPS_ROOT_PATH . '/modules/tadtools/fancybox.php';
+    require_once XOOPS_ROOT_PATH . '/modules/tadtools/fancybox.php';
     $fancybox = new fancybox('.media_image', '100%');
     $fancybox_code = $fancybox->render(false);
     $xoopsTpl->assign('fancybox_code', $fancybox_code);
@@ -76,7 +76,7 @@ function get_start_at_slide($def_timeline_sn = '')
 }
 
 /*-----------執行動作判斷區----------*/
-include_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
+require_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
 $op = system_CleanVars($_REQUEST, 'op', '', 'string');
 $timeline_sn = system_CleanVars($_REQUEST, 'timeline_sn', '', 'int');
 $files_sn = system_CleanVars($_REQUEST, 'files_sn', '', 'int');
@@ -103,7 +103,7 @@ switch ($op) {
 
     //下載檔案
     case 'tufdl':
-        include_once XOOPS_ROOT_PATH . '/modules/tadtools/TadUpFiles.php';
+        require_once XOOPS_ROOT_PATH . '/modules/tadtools/TadUpFiles.php';
         $TadUpFiles = new TadUpFiles('tad_timeline');
         $TadUpFiles->add_file_counter($files_sn, false);
         exit;
@@ -132,4 +132,4 @@ switch ($op) {
 $xoopsTpl->assign('toolbar', toolbar_bootstrap($interface_menu));
 $xoopsTpl->assign('isAdmin', $isAdmin);
 $xoopsTpl->assign('now_op', $op);
-include_once XOOPS_ROOT_PATH . '/footer.php';
+require_once XOOPS_ROOT_PATH . '/footer.php';

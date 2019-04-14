@@ -26,7 +26,7 @@ function tad_timeline_search($queryarray, $andor, $limit, $offset, $userid)
     $ret = [];
     $i = 0;
 
-    while ($myrow = $xoopsDB->fetchArray($result)) {
+    while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
         $ret[$i]['image'] = 'images/application_form.png';
         $ret[$i]['link'] = 'index.php?timeline_sn=' . $myrow['timeline_sn'];
         $ret[$i]['title'] = $myrow['text_headline'];

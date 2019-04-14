@@ -9,7 +9,7 @@ function tad_timeline_list($options)
     $block['mode'] = $options[0];
     if ('list' === $options[0]) {
         $myts = MyTextSanitizer::getInstance();
-        include_once XOOPS_ROOT_PATH . '/modules/tadtools/TadUpFiles.php';
+        require_once XOOPS_ROOT_PATH . '/modules/tadtools/TadUpFiles.php';
         $TadUpFiles = new TadUpFiles('tad_timeline');
         $sql = 'SELECT * FROM `' . $xoopsDB->prefix('tad_timeline') . '` ORDER BY `year`, `month`, `day`';
         $result = $xoopsDB->query($sql) or web_error($sql, __FILE__, __LINE__);
@@ -17,7 +17,7 @@ function tad_timeline_list($options)
         $all_content = [];
 
         $i = 0;
-        while ($all = $xoopsDB->fetchArray($result)) {
+        while (false !== ($all = $xoopsDB->fetchArray($result))) {
             //以下會產生這些變數： $timeline_sn, $year, $month, $day, $text_headline, $text_text, $timeline_uid
             foreach ($all as $k => $v) {
                 $$k = $v;
@@ -51,7 +51,7 @@ function tad_timeline_list($options)
 
         $i = 1;
         $order = [];
-        while (list($timeline_sn) = $xoopsDB->fetchRow($result)) {
+        while (false !== (list($timeline_sn) = $xoopsDB->fetchRow($result))) {
             $order[$timeline_sn] = $i;
             $have_content = true;
             $i++;
@@ -66,7 +66,7 @@ function tad_timeline_list($options)
         // if (!file_exists(XOOPS_ROOT_PATH . "/modules/tadtools/fancybox.php")) {
         //     redirect_header("index.php", 3, _MA_NEED_TADTOOLS);
         // }
-        // include_once XOOPS_ROOT_PATH . "/modules/tadtools/fancybox.php";
+        // require_once XOOPS_ROOT_PATH . "/modules/tadtools/fancybox.php";
         // $fancybox               = new fancybox('.media-image', '100%');
         // $block['fancybox_code'] = $fancybox->render(false, true);
     }
@@ -84,7 +84,7 @@ function tad_timeline_list_edit($options)
     $result = $xoopsDB->query($sql)
     or web_error($sql, __FILE__, __LINE__);
     $opt = '';
-    while (list($timeline_sn, $year, $month, $day, $text_headline) = $xoopsDB->fetchRow($result)) {
+    while (false !== (list($timeline_sn, $year, $month, $day, $text_headline) = $xoopsDB->fetchRow($result))) {
         $selected = $options[1] == $timeline_sn ? 'selected' : '';
         $opt .= "<option value='{$timeline_sn}' $selected>{$year} {$text_headline}</option>";
     }

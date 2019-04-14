@@ -16,7 +16,7 @@
  * @author     tad
  * @version    $Id $
  **/
-include_once XOOPS_ROOT_PATH . '/modules/tadtools/language/' . $xoopsConfig['language'] . '/modinfo_common.php';
+require_once XOOPS_ROOT_PATH . '/modules/tadtools/language/' . $xoopsConfig['language'] . '/modinfo_common.php';
 
 define('_MI_TAD_TIMELINE_NAME', 'Important Chronicle');
 define('_MI_TAD_TIMELINE_AUTHOR', 'Important Chronicle');

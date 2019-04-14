@@ -21,7 +21,7 @@
 if (!file_exists(XOOPS_ROOT_PATH . '/modules/tadtools/tad_function.php')) {
     redirect_header('http://www.tad0616.net/modules/tad_uploader/index.php?of_cat_sn=50', 3, _TAD_NEED_TADTOOLS);
 }
-include_once XOOPS_ROOT_PATH . '/modules/tadtools/tad_function.php';
+require_once XOOPS_ROOT_PATH . '/modules/tadtools/tad_function.php';
 
 /********************* 自訂函數 *********************/
 
@@ -73,18 +73,18 @@ function tad_timeline_form($timeline_sn = '')
     if (!file_exists(TADTOOLS_PATH . '/formValidator.php')) {
         redirect_header('index.php', 3, _TAD_NEED_TADTOOLS);
     }
-    include_once TADTOOLS_PATH . '/formValidator.php';
+    require_once TADTOOLS_PATH . '/formValidator.php';
     $formValidator = new formValidator('#myForm', true);
     $formValidator_code = $formValidator->render();
 
-    include_once XOOPS_ROOT_PATH . '/modules/tadtools/TadUpFiles.php';
+    require_once XOOPS_ROOT_PATH . '/modules/tadtools/TadUpFiles.php';
     $TadUpFiles = new TadUpFiles('tad_timeline');
     $TadUpFiles->set_col('timeline_sn', $timeline_sn, 1);
     $up_timeline_sn_form = $TadUpFiles->upform(true, 'up_timeline_sn', '1');
     $xoopsTpl->assign('up_timeline_sn_form', $up_timeline_sn_form);
 
     //加入Token安全機制
-    include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+    require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     $token = new XoopsFormHiddenToken();
     $token_form = $token->render();
     $xoopsTpl->assign('token_form', $token_form);
@@ -107,7 +107,7 @@ function mk_json()
     $result = $xoopsDB->query($sql)
     or web_error($sql, __FILE__, __LINE__);
     $i = 0;
-    while ($all = $xoopsDB->fetchArray($result)) {
+    while (false !== ($all = $xoopsDB->fetchArray($result))) {
         //以下會產生這些變數： $timeline_sn, $year, $month, $day, $text_headline, $text_text, $timeline_uid
         foreach ($all as $k => $v) {
             $$k = $v;
@@ -120,7 +120,7 @@ function mk_json()
         $text_headline = strip_tags($text_headline);
         $text_text = strip_tags($text_text);
 
-        include_once XOOPS_ROOT_PATH . '/modules/tadtools/TadUpFiles.php';
+        require_once XOOPS_ROOT_PATH . '/modules/tadtools/TadUpFiles.php';
         $TadUpFiles = new TadUpFiles('tad_timeline');
         $TadUpFiles->set_col('timeline_sn', $timeline_sn, 1);
         $media_url = $TadUpFiles->get_pic_file('images');
@@ -177,7 +177,7 @@ function insert_tad_timeline()
     $uid = ($xoopsUser) ? $xoopsUser->uid() : '';
     //XOOPS表單安全檢查
     if (!$GLOBALS['xoopsSecurity']->check()) {
-        $error = implode('<br />', $GLOBALS['xoopsSecurity']->getErrors());
+        $error = implode('<br>', $GLOBALS['xoopsSecurity']->getErrors());
         redirect_header($_SERVER['PHP_SELF'], 3, $error);
     }
 
@@ -211,7 +211,7 @@ function insert_tad_timeline()
     //取得最後新增資料的流水編號
     $timeline_sn = $xoopsDB->getInsertId();
 
-    include_once XOOPS_ROOT_PATH . '/modules/tadtools/TadUpFiles.php';
+    require_once XOOPS_ROOT_PATH . '/modules/tadtools/TadUpFiles.php';
     $TadUpFiles = new TadUpFiles('tad_timeline');
     $TadUpFiles->set_col('timeline_sn', $timeline_sn, 1);
     $TadUpFiles->upload_file('up_timeline_sn', '1280', '320', '', '', true, false);
@@ -234,7 +234,7 @@ function update_tad_timeline($timeline_sn = '')
     $uid = ($xoopsUser) ? $xoopsUser->uid() : '';
     //XOOPS表單安全檢查
     if (!$GLOBALS['xoopsSecurity']->check()) {
-        $error = implode('<br />', $GLOBALS['xoopsSecurity']->getErrors());
+        $error = implode('<br>', $GLOBALS['xoopsSecurity']->getErrors());
         redirect_header($_SERVER['PHP_SELF'], 3, $error);
     }
 
@@ -258,7 +258,7 @@ function update_tad_timeline($timeline_sn = '')
     where `timeline_sn` = '$timeline_sn'";
     $xoopsDB->queryF($sql) or web_error($sql, __FILE__, __LINE__);
 
-    include_once XOOPS_ROOT_PATH . '/modules/tadtools/TadUpFiles.php';
+    require_once XOOPS_ROOT_PATH . '/modules/tadtools/TadUpFiles.php';
     $TadUpFiles = new TadUpFiles('tad_timeline');
     $TadUpFiles->set_col('timeline_sn', $timeline_sn, 1);
     $TadUpFiles->upload_file('up_timeline_sn', '1280', '320', '', '', true, false);
@@ -285,7 +285,7 @@ function delete_tad_timeline($timeline_sn = '')
     where `timeline_sn` = '{$timeline_sn}'";
     $xoopsDB->queryF($sql) or web_error($sql, __FILE__, __LINE__);
 
-    include_once XOOPS_ROOT_PATH . '/modules/tadtools/TadUpFiles.php';
+    require_once XOOPS_ROOT_PATH . '/modules/tadtools/TadUpFiles.php';
     $TadUpFiles = new TadUpFiles('tad_timeline');
     $TadUpFiles->set_col('timeline_sn', $timeline_sn, 1);
     $TadUpFiles->del_files();
@@ -306,7 +306,7 @@ function list_tad_timeline()
         if (!file_exists(XOOPS_ROOT_PATH . '/modules/tadtools/sweet_alert.php')) {
             redirect_header('index.php', 3, _MA_NEED_TADTOOLS);
         }
-        include_once XOOPS_ROOT_PATH . '/modules/tadtools/sweet_alert.php';
+        require_once XOOPS_ROOT_PATH . '/modules/tadtools/sweet_alert.php';
         $sweet_alert_obj = new sweet_alert();
         $sweet_alert_obj->render(
             'delete_tad_timeline_func',
@@ -316,7 +316,7 @@ function list_tad_timeline()
     }
     $myts = MyTextSanitizer::getInstance();
 
-    include_once XOOPS_ROOT_PATH . '/modules/tadtools/TadUpFiles.php';
+    require_once XOOPS_ROOT_PATH . '/modules/tadtools/TadUpFiles.php';
     $TadUpFiles = new TadUpFiles('tad_timeline');
     $sql = 'SELECT * FROM `' . $xoopsDB->prefix('tad_timeline') . '` ORDER BY `year`, `month`, `day`';
 
@@ -331,7 +331,7 @@ function list_tad_timeline()
 
     $all_content = [];
     $i = 0;
-    while ($all = $xoopsDB->fetchArray($result)) {
+    while (false !== ($all = $xoopsDB->fetchArray($result))) {
         //以下會產生這些變數： $timeline_sn, $year, $month, $day, $text_headline, $text_text, $timeline_uid
         foreach ($all as $k => $v) {
             $$k = $v;
@@ -363,7 +363,7 @@ function list_tad_timeline()
         if (!file_exists(XOOPS_ROOT_PATH . '/modules/tadtools/sweet_alert.php')) {
             redirect_header('index.php', 3, _MA_NEED_TADTOOLS);
         }
-        include_once XOOPS_ROOT_PATH . '/modules/tadtools/sweet_alert.php';
+        require_once XOOPS_ROOT_PATH . '/modules/tadtools/sweet_alert.php';
         $sweet_alert_obj = new sweet_alert();
         $sweet_alert_obj->render(
             'delete_tad_timeline_func',
