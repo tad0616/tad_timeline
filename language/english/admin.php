@@ -16,7 +16,7 @@
  * @author     tad
  * @version    $Id $
  **/
-require_once "../../tadtools/language/{$xoopsConfig['language']}/admin_common.php";
+xoops_loadLanguage('admin_common', 'tadtools');
 define('_TAD_NEED_TADTOOLS', 'This module needs TadTools module. You can download TadTools from <a href="http://www.tad0616.net/modules/tad_uploader/index.php?of_cat_sn=50" target="_blank">Tad Textbook </a>. ');
 
 //tad_timeline-list

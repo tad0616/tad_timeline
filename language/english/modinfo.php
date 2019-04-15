@@ -16,19 +16,19 @@
  * @author     tad
  * @version    $Id $
  **/
-require_once XOOPS_ROOT_PATH . '/modules/tadtools/language/' . $xoopsConfig['language'] . '/modinfo_common.php';
+xoops_loadLanguage('modinfo_common', 'tadtools');
 
 define('_MI_TAD_TIMELINE_NAME', 'Important Chronicle');
 define('_MI_TAD_TIMELINE_AUTHOR', 'Important Chronicle');
 define('_MI_TAD_TIMELINE_CREDITS', '');
 define('_MI_TAD_TIMELINE_DESC', 'Important Chronicle of Horizontal Timeline');
 define('_MI_TAD_TIMELINE_AUTHOR_WEB', 'Tad textbook');
-define('_MI_TAD_TIMELINE_ADMENU1', 'main manager interface');
-define('_MI_TAD_TIMELINE_ADMENU1_DESC', 'main manager interface');
+define('_MI_TAD_TIMELINE_ADMENU1', 'Manager');
+define('_MI_TAD_TIMELINE_ADMENU1_DESC', 'Manager');
 define('_MI_TAD_TIMELINE_ADMENU2', 'category management');
 define('_MI_TAD_TIMELINE_ADMENU2_DESC', 'category management');
 
-define('_MI_TADTIMELI_GROUPPERM', 'Detail permission');
+define('_MI_TADTIMELI_GROUPPERM', 'Permissions');
 define('_MI_TADTIMELI_GROUPPERM_DESC', 'Detail permission');
 
 define('_MI_TAD_TIMELINE_LIST_BLOCK_NAME', 'important note block');

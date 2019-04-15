@@ -16,7 +16,7 @@
  * @author     tad
  * @version    $Id $
  **/
-require_once XOOPS_ROOT_PATH . '/modules/tadtools/language/' . $xoopsConfig['language'] . '/modinfo_common.php';
+xoops_loadLanguage('modinfo_common', 'tadtools');
 
 define('_MI_TAD_TIMELINE_NAME', '重要紀事');
 define('_MI_TAD_TIMELINE_AUTHOR', '重要紀事');
