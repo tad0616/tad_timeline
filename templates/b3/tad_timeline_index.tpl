@@ -16,9 +16,6 @@
     <{includeq file="$xoops_rootpath/modules/tad_timeline/templates/tad_timeline_list.tpl"}>
   <{else}>
     <{if $have_content}>
-
-      <{$fancybox_code}>
-
       <!-- BEGIN TimelineJS -->
       <script type="text/javascript" src="<{$xoops_url}>/modules/tad_timeline/class/timeline/js/storyjs-embed.js"></script>
       <script>

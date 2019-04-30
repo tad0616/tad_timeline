@@ -1,5 +1,3 @@
-<!--套用formValidator驗證機制-->
-<{$formValidator_code}>
 <form action="<{$action}>" method="post" id="myForm" enctype="multipart/form-data" role="form">
 
   <!--事件年-->
