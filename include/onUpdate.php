@@ -1,5 +1,8 @@
 <?php
 use XoopsModules\Tad_timeline\Update;
+if (!class_exists('XoopsModules\Tad_timeline\Update')) {
+    include dirname(__DIR__) . '/preloads/autoloader.php';
+}
 
 function xoops_module_update_tad_timeline($module, $old_version)
 {
