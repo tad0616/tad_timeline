@@ -51,7 +51,7 @@ function tad_timeline_list($options)
 
         $i = 1;
         $order = [];
-        while (false !== (list($timeline_sn) = $xoopsDB->fetchRow($result))) {
+        while (list($timeline_sn) = $xoopsDB->fetchRow($result)) {
             $order[$timeline_sn] = $i;
             $have_content = true;
             $i++;
@@ -64,7 +64,7 @@ function tad_timeline_list($options)
         }
 
         // if (!file_exists(XOOPS_ROOT_PATH . "/modules/tadtools/fancybox.php")) {
-        //     redirect_header("index.php", 3, _MA_NEED_TADTOOLS);
+        //     redirect_header("index.php", 3, _TAD_NEED_TADTOOLS);
         // }
         // require_once XOOPS_ROOT_PATH . "/modules/tadtools/fancybox.php";
         // $fancybox               = new fancybox('.media-image', '100%');
@@ -84,7 +84,7 @@ function tad_timeline_list_edit($options)
     $result = $xoopsDB->query($sql)
     or web_error($sql, __FILE__, __LINE__);
     $opt = '';
-    while (false !== (list($timeline_sn, $year, $month, $day, $text_headline) = $xoopsDB->fetchRow($result))) {
+    while (list($timeline_sn, $year, $month, $day, $text_headline) = $xoopsDB->fetchRow($result)) {
         $selected = $options[1] == $timeline_sn ? 'selected' : '';
         $opt .= "<option value='{$timeline_sn}' $selected>{$year} {$text_headline}</option>";
     }

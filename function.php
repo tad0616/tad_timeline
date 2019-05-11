@@ -85,7 +85,7 @@ function tad_timeline_form($timeline_sn = '')
 
     //加入Token安全機制
     require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-    $token = new XoopsFormHiddenToken();
+    $token = new \XoopsFormHiddenToken();
     $token_form = $token->render();
     $xoopsTpl->assign('token_form', $token_form);
     $xoopsTpl->assign('action', $_SERVER['PHP_SELF']);
@@ -304,7 +304,7 @@ function list_tad_timeline()
         tad_timeline_form();
         //刪除確認的JS
         if (!file_exists(XOOPS_ROOT_PATH . '/modules/tadtools/sweet_alert.php')) {
-            redirect_header('index.php', 3, _MA_NEED_TADTOOLS);
+            redirect_header('index.php', 3, _TAD_NEED_TADTOOLS);
         }
         require_once XOOPS_ROOT_PATH . '/modules/tadtools/sweet_alert.php';
         $sweet_alert_obj = new sweet_alert();
@@ -350,7 +350,7 @@ function list_tad_timeline()
         $all_content[$i]['day'] = $day;
         $all_content[$i]['text_headline'] = $text_headline;
         $all_content[$i]['text_text'] = $text_text;
-        $all_content[$i]['timeline_uid'] = $uid_name;
+        $all_content[$i]['timeline_uid'] = isset($uid_name) ? $uid_name : '';
         $TadUpFiles->set_col('timeline_sn', $timeline_sn, 1);
         $show_files = $TadUpFiles->show_files('up_timeline_sn', true, 'small', true, false, null, null, false);
         $all_content[$i]['list_file'] = $show_files;
@@ -361,7 +361,7 @@ function list_tad_timeline()
     if ($edit_event) {
         //刪除確認的JS
         if (!file_exists(XOOPS_ROOT_PATH . '/modules/tadtools/sweet_alert.php')) {
-            redirect_header('index.php', 3, _MA_NEED_TADTOOLS);
+            redirect_header('index.php', 3, _TAD_NEED_TADTOOLS);
         }
         require_once XOOPS_ROOT_PATH . '/modules/tadtools/sweet_alert.php';
         $sweet_alert_obj = new sweet_alert();
@@ -373,7 +373,8 @@ function list_tad_timeline()
     }
 
     $xoopsTpl->assign('bar', $bar);
-    $xoopsTpl->assign('delete_tad_timeline_func', $delete_tad_timeline_func);
+//    $xoopsTpl->assign('delete_tad_timeline_func', $delete_tad_timeline_func);
+//    $xoopsTpl->assign('delete_tad_timeline_func', "{$_SERVER['PHP_SELF']}?op=delete_tad_timeline&timeline_sn=");
     $xoopsTpl->assign('action', $_SERVER['PHP_SELF']);
     $xoopsTpl->assign('edit_event', $edit_event);
     $xoopsTpl->assign('all_content', $all_content);

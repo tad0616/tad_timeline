@@ -20,22 +20,41 @@
       <{$fancybox_code}>
 
       <!-- BEGIN TimelineJS -->
-      <script type="text/javascript" src="<{$xoops_url}>/modules/tad_timeline/class/timeline/js/storyjs-embed.js"></script>
-      <script>
-        $(document).ready(function() {
-          createStoryJS({
-            type:             'timeline',
-            width:            '100%',
-            height:           '500',
-            start_at_end:     false,
-            start_at_slide:   <{$start_at_slide}>,
-            start_zoom_adjust:2,
-            lang:             'zh-tw',
-            source:           '<{$xoops_url}>/uploads/tad_timeline/tad_timeline.json',
-            embed_id:         'my-timeline',
-            debug:            true
-          });
-        });
+<{*      <link rel="stylesheet" type="text/css" href="<{$xoops_url}>/modules/tad_timeline/class/timeline/css/timeline.css">*}>
+<{*      <script type="text/javascript" src="<{$xoops_url}>/modules/tad_timeline/class/timeline/js/storyjs-embed.js"></script>*}>
+
+        <link title="timeline-styles" rel="stylesheet" href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
+        <script src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"></script>
+
+<{*      <script>*}>
+        <{*$(document).ready(function() {*}>
+        <{*  createStoryJS({*}>
+        <{*    type:             'timeline',*}>
+        <{*    width:            '100%',*}>
+        <{*    height:           '500',*}>
+        <{*    start_at_end:     false,*}>
+        <{*    start_at_slide:   <{$start_at_slide}>,*}>
+        <{*    start_zoom_adjust:2,*}>
+        <{*    lang:             'zh-tw',*}>
+        <{*    source:           '<{$xoops_url}>/uploads/tad_timeline/tad_timeline.json',*}>
+        <{*    embed_id:         'my-timeline',*}>
+        <{*    debug:            true*}>
+        <{*  });*}>
+        <{*});*}>
+
+<{*         timeline = new TL.Timeline('timeline-embed', 'https://docs.google.com/spreadsheets/d/1cWqQBZCkX9GpzFtxCWHoqFXCHg-ylTVUWlnrdYMzKUI/pubhtml');*}>
+
+
+        <div id="timeline"></div>
+            <!-- JavaScript-->
+            <script src="class/timesline/js/timeline.js"></script>
+<script>
+    var timeline = new TL.Timeline('timeline', '<{$xoops_url}>/modules/tad_timeline/class/timeline/examples/welcome.json', {
+        theme_color: "#288EC3",
+        ga_property_id: "UA-27829802-4"
+    });
+</script>
+
       </script>
       <!-- END TimelineJS -->
 

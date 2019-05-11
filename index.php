@@ -35,7 +35,7 @@ function get_start_at_slide($def_timeline_sn = '')
         tad_timeline_form();
         //刪除確認的JS
         if (!file_exists(XOOPS_ROOT_PATH . '/modules/tadtools/sweet_alert.php')) {
-            redirect_header('index.php', 3, _MA_NEED_TADTOOLS);
+            redirect_header('index.php', 3, _TAD_NEED_TADTOOLS);
         }
         require_once XOOPS_ROOT_PATH . '/modules/tadtools/sweet_alert.php';
         $sweet_alert_obj = new sweet_alert();
@@ -52,7 +52,7 @@ function get_start_at_slide($def_timeline_sn = '')
     $i = 1;
     $order = [];
     $have_content = false;
-    while (false !== (list($timeline_sn) = $xoopsDB->fetchRow($result))) {
+    while (list($timeline_sn) = $xoopsDB->fetchRow($result)) {
         $order[$timeline_sn] = $i;
         $have_content = true;
         $i++;
@@ -60,7 +60,7 @@ function get_start_at_slide($def_timeline_sn = '')
     $xoopsTpl->assign('have_content', $have_content);
 
     if (!file_exists(XOOPS_ROOT_PATH . '/modules/tadtools/fancybox.php')) {
-        redirect_header('index.php', 3, _MA_NEED_TADTOOLS);
+        redirect_header('index.php', 3, _TAD_NEED_TADTOOLS);
     }
     require_once XOOPS_ROOT_PATH . '/modules/tadtools/fancybox.php';
     $fancybox = new fancybox('.media_image', '100%');
@@ -118,7 +118,7 @@ switch ($op) {
         get_start_at_slide($timeline_sn);
         break;
     default:
-        if ('list' === $xoopsModuleConfig['default_display_mode'] and empty($timeline_sn)) {
+        if ('list' === $xoopsModuleConfig['default_display_mode'] && empty($timeline_sn)) {
             header("location: {$_SERVER['PHP_SELF']}?op=list_tad_timeline");
             exit;
         }
