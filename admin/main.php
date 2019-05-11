@@ -1,25 +1,8 @@
 <?php
-/**
- * Events module
- *
- * You may not change or alter any portion of this comment or credits
- * of supporting developers from this source code or any supporting source code
- * which is considered copyrighted (c) material of the original comment or credit authors.
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *
- * @copyright  XOOPS Project (https://xoops.org)
- * @license    http://www.fsf.org/copyleft/gpl.html GNU public license
- * @package    Events
- * @since      2.5
- * @author     tad
- * @version    $Id $
- **/
-
+use XoopsModules\Tadtools\TadUpFiles;
 /*-----------引入檔案區--------------*/
 $isAdmin = true;
-$GLOBALS['xoopsOption']['template_main'] = 'tad_timeline_adm_main.tpl';
+$xoopsOption['template_main'] = 'tad_timeline_adm_main.tpl';
 require_once __DIR__ . '/header.php';
 require_once dirname(__DIR__) . '/function.php';
 
@@ -56,7 +39,6 @@ switch ($op) {
 
     //下載檔案
     case 'tufdl':
-        require_once XOOPS_ROOT_PATH . '/modules/tadtools/TadUpFiles.php';
         $TadUpFiles = new TadUpFiles('tad_timeline');
         $TadUpFiles->add_file_counter($files_sn, false);
         exit;
