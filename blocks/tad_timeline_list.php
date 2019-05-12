@@ -21,7 +21,7 @@ function tad_timeline_list($options)
         $all_content = [];
 
         $i = 0;
-        while ($all = $xoopsDB->fetchArray($result)) {
+        while (false !== ($all = $xoopsDB->fetchArray($result))) {
             //以下會產生這些變數： $timeline_sn, $year, $month, $day, $text_headline, $text_text, $timeline_uid
             foreach ($all as $k => $v) {
                 $$k = $v;
@@ -79,8 +79,7 @@ function tad_timeline_list_edit($options)
     global $xoopsDB;
 
     $sql = 'SELECT timeline_sn,year,month,day,text_headline FROM `' . $xoopsDB->prefix('tad_timeline') . '` ORDER BY year, month, day';
-    $result = $xoopsDB->query($sql)
-    or Utility::web_error($sql, __FILE__, __LINE__);
+    $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
     $opt = '';
     while (list($timeline_sn, $year, $month, $day, $text_headline) = $xoopsDB->fetchRow($result)) {
         $selected = $options[1] == $timeline_sn ? 'selected' : '';

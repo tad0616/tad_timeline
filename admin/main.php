@@ -3,13 +3,13 @@ use XoopsModules\Tadtools\TadUpFiles;
 /*-----------引入檔案區--------------*/
 $isAdmin = true;
 $xoopsOption['template_main'] = 'tad_timeline_adm_main.tpl';
-include_once 'header.php';
-include_once '../function.php';
+require_once __DIR__ . '/header.php';
+require_once dirname(__DIR__) . '/function.php';
 
 /*-----------功能函數區--------------*/
 
 /*-----------執行動作判斷區----------*/
-include_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
+require_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
 $op = system_CleanVars($_REQUEST, 'op', '', 'string');
 $timeline_sn = system_CleanVars($_REQUEST, 'timeline_sn', '', 'int');
 $files_sn = system_CleanVars($_REQUEST, 'files_sn', '', 'int');
@@ -52,4 +52,4 @@ switch ($op) {
 /*-----------秀出結果區--------------*/
 $xoopsTpl->assign('isAdmin', true);
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/tadtools/css/xoops_adm.css');
-include_once 'footer.php';
+require_once __DIR__ . '/footer.php';

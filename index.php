@@ -4,9 +4,9 @@ use XoopsModules\Tadtools\SweetAlert;
 use XoopsModules\Tadtools\TadUpFiles;
 use XoopsModules\Tadtools\Utility;
 /*-----------引入檔案區--------------*/
-include 'header.php';
+require __DIR__ . '/header.php';
 $xoopsOption['template_main'] = 'tad_timeline_index.tpl';
-include_once XOOPS_ROOT_PATH . '/header.php';
+require_once XOOPS_ROOT_PATH . '/header.php';
 
 /*-----------功能函數區--------------*/
 
@@ -52,7 +52,7 @@ function get_start_at_slide($def_timeline_sn = '')
 }
 
 /*-----------執行動作判斷區----------*/
-include_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
+require_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
 $op = system_CleanVars($_REQUEST, 'op', '', 'string');
 $timeline_sn = system_CleanVars($_REQUEST, 'timeline_sn', '', 'int');
 $files_sn = system_CleanVars($_REQUEST, 'files_sn', '', 'int');
@@ -93,11 +93,11 @@ switch ($op) {
         get_start_at_slide($timeline_sn);
         break;
     default:
-        if ('list' === $xoopsModuleConfig['default_display_mode'] and empty($timeline_sn)) {
+        if ('list' === $xoopsModuleConfig['default_display_mode'] && empty($timeline_sn)) {
             header("location: {$_SERVER['PHP_SELF']}?op=list_tad_timeline");
             exit;
         }
-        get_start_at_slide($timeline_sn);
+            get_start_at_slide($timeline_sn);
 
         break;
         /*---判斷動作請貼在上方---*/
@@ -107,4 +107,4 @@ switch ($op) {
 $xoopsTpl->assign('toolbar', Utility::toolbar_bootstrap($interface_menu));
 $xoopsTpl->assign('isAdmin', $isAdmin);
 $xoopsTpl->assign('now_op', $op);
-include_once XOOPS_ROOT_PATH . '/footer.php';
+require_once XOOPS_ROOT_PATH . '/footer.php';

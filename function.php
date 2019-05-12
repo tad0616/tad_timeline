@@ -58,7 +58,7 @@ function tad_timeline_form($timeline_sn = '')
     $xoopsTpl->assign('up_timeline_sn_form', $up_timeline_sn_form);
 
     //加入Token安全機制
-    include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+    require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     $token = new \XoopsFormHiddenToken();
     $token_form = $token->render();
     $xoopsTpl->assign('token_form', $token_form);
@@ -80,7 +80,7 @@ function mk_json()
     $result = $xoopsDB->query($sql)
     or Utility::web_error($sql, __FILE__, __LINE__);
     $i = 0;
-    while ($all = $xoopsDB->fetchArray($result)) {
+    while (false !== ($all = $xoopsDB->fetchArray($result))) {
         //以下會產生這些變數： $timeline_sn, $year, $month, $day, $text_headline, $text_text, $timeline_uid
         foreach ($all as $k => $v) {
             $$k = $v;
@@ -129,8 +129,7 @@ function get_tad_timeline($timeline_sn = '')
 
     $sql = 'select * from `' . $xoopsDB->prefix('tad_timeline') . "`
     where `timeline_sn` = '{$timeline_sn}'";
-    $result = $xoopsDB->query($sql)
-    or Utility::web_error($sql, __FILE__, __LINE__);
+    $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
     $data = $xoopsDB->fetchArray($result);
 
     return $data;
@@ -149,7 +148,7 @@ function insert_tad_timeline()
     $uid = ($xoopsUser) ? $xoopsUser->uid() : '';
     //XOOPS表單安全檢查
     if (!$GLOBALS['xoopsSecurity']->check()) {
-        $error = implode('<br />', $GLOBALS['xoopsSecurity']->getErrors());
+        $error = implode('<br>', $GLOBALS['xoopsSecurity']->getErrors());
         redirect_header($_SERVER['PHP_SELF'], 3, $error);
     }
 
@@ -183,6 +182,7 @@ function insert_tad_timeline()
     //取得最後新增資料的流水編號
     $timeline_sn = $xoopsDB->getInsertId();
 
+    require_once XOOPS_ROOT_PATH . '/modules/tadtools/TadUpFiles.php';
     $TadUpFiles = new TadUpFiles('tad_timeline');
     $TadUpFiles->set_col('timeline_sn', $timeline_sn, 1);
     $TadUpFiles->upload_file('up_timeline_sn', '1280', '320', '', '', true, false);
@@ -205,7 +205,7 @@ function update_tad_timeline($timeline_sn = '')
     $uid = ($xoopsUser) ? $xoopsUser->uid() : '';
     //XOOPS表單安全檢查
     if (!$GLOBALS['xoopsSecurity']->check()) {
-        $error = implode('<br />', $GLOBALS['xoopsSecurity']->getErrors());
+        $error = implode('<br>', $GLOBALS['xoopsSecurity']->getErrors());
         redirect_header($_SERVER['PHP_SELF'], 3, $error);
     }
 
@@ -220,12 +220,12 @@ function update_tad_timeline($timeline_sn = '')
     $timeline_uid = (int) $_POST['timeline_uid'];
 
     $sql = 'update `' . $xoopsDB->prefix('tad_timeline') . "` set
-    `year` = '{$year}',
-    `month` = '{$month}',
-    `day` = '{$day}',
-    `text_headline` = '{$text_headline}',
-    `text_text` = '{$text_text}',
-    `timeline_uid` = '{$uid}'
+       `year` = '{$year}',
+       `month` = '{$month}',
+       `day` = '{$day}',
+       `text_headline` = '{$text_headline}',
+       `text_text` = '{$text_text}',
+       `timeline_uid` = '{$uid}'
     where `timeline_sn` = '$timeline_sn'";
     $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
 
@@ -290,12 +290,11 @@ function list_tad_timeline()
     $sql = $PageBar['sql'];
     $total = $PageBar['total'];
 
-    $result = $xoopsDB->query($sql)
-    or Utility::web_error($sql, __FILE__, __LINE__);
+    $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
 
     $all_content = [];
     $i = 0;
-    while ($all = $xoopsDB->fetchArray($result)) {
+    while (false !== ($all = $xoopsDB->fetchArray($result))) {
         //以下會產生這些變數： $timeline_sn, $year, $month, $day, $text_headline, $text_text, $timeline_uid
         foreach ($all as $k => $v) {
             $$k = $v;
@@ -314,7 +313,7 @@ function list_tad_timeline()
         $all_content[$i]['day'] = $day;
         $all_content[$i]['text_headline'] = $text_headline;
         $all_content[$i]['text_text'] = $text_text;
-        $all_content[$i]['timeline_uid'] = $uid_name;
+        $all_content[$i]['timeline_uid'] = isset($uid_name) ? $uid_name : '';
         $TadUpFiles->set_col('timeline_sn', $timeline_sn, 1);
         $show_files = $TadUpFiles->show_files('up_timeline_sn', true, 'small', true, false, null, null, false);
         $all_content[$i]['list_file'] = $show_files;
@@ -333,7 +332,8 @@ function list_tad_timeline()
     }
 
     $xoopsTpl->assign('bar', $bar);
-    $xoopsTpl->assign('delete_tad_timeline_func', $delete_tad_timeline_func);
+//    $xoopsTpl->assign('delete_tad_timeline_func', $delete_tad_timeline_func);
+//    $xoopsTpl->assign('delete_tad_timeline_func', "{$_SERVER['PHP_SELF']}?op=delete_tad_timeline&timeline_sn=");
     $xoopsTpl->assign('action', $_SERVER['PHP_SELF']);
     $xoopsTpl->assign('edit_event', $edit_event);
     $xoopsTpl->assign('all_content', $all_content);
