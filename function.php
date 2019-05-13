@@ -3,7 +3,10 @@ use XoopsModules\Tadtools\FormValidator;
 use XoopsModules\Tadtools\SweetAlert;
 use XoopsModules\Tadtools\TadUpFiles;
 use XoopsModules\Tadtools\Utility;
-/********************* 自訂函數 *********************/
+
+/********************* 自訂函數 ********************
+ * @param string $timeline_sn
+ */
 
 //tad_timeline編輯表單
 function tad_timeline_form($timeline_sn = '')
