@@ -1,3 +1,7 @@
+Tad Timeline 1.7 (released 2020-04-20)
+================================================
+1. Adjust z-index to avoid blocking the menu.
+
 Tad Timeline 1.6 (2020-03-14 released)
 ================================================
 1. Correction for accessibility 2.0 AA standard
