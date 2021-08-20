@@ -1,3 +1,10 @@
+Tad Timeline 1.8 (2021-08-01 released)
+================================================
+1.Compliant with the new Accessibility AA Standard 2021/07
+2.Merge BootStrap3 and 4 templates
+3.Support for XOOPS 2.5.11
+
+
 Tad Timeline 1.7 (released 2020-04-20)
 ================================================
 1. Adjust z-index to avoid blocking the menu.

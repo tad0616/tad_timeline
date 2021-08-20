@@ -1,7 +1,7 @@
 <?php
+use Xmf\Request;
 use XoopsModules\Tadtools\TadUpFiles;
 /*-----------引入檔案區--------------*/
-$isAdmin = true;
 $xoopsOption['template_main'] = 'tad_timeline_adm_main.tpl';
 require_once __DIR__ . '/header.php';
 require_once dirname(__DIR__) . '/function.php';
@@ -9,10 +9,9 @@ require_once dirname(__DIR__) . '/function.php';
 /*-----------功能函數區--------------*/
 
 /*-----------執行動作判斷區----------*/
-require_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
-$op = system_CleanVars($_REQUEST, 'op', '', 'string');
-$timeline_sn = system_CleanVars($_REQUEST, 'timeline_sn', '', 'int');
-$files_sn = system_CleanVars($_REQUEST, 'files_sn', '', 'int');
+$op = Request::getString('op');
+$timeline_sn = Request::getInt('timeline_sn');
+$files_sn = Request::getInt('files_sn');
 
 switch ($op) {
     /*---判斷動作請貼在下方---*/
@@ -50,6 +49,5 @@ switch ($op) {
 }
 
 /*-----------秀出結果區--------------*/
-$xoopsTpl->assign('isAdmin', true);
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/tadtools/css/xoops_adm.css');
 require_once __DIR__ . '/footer.php';

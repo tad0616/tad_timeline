@@ -11,7 +11,7 @@ use XoopsModules\Tadtools\Utility;
 //tad_timeline編輯表單
 function tad_timeline_form($timeline_sn = '')
 {
-    global $xoopsDB, $xoopsTpl, $isAdmin, $xoopsUser;
+    global $xoopsDB, $xoopsTpl, $xoopsUser;
     $edit_event = Utility::power_chk('tad_timeline', 1);
     if (!$edit_event) {
         redirect_header($_SERVER['PHP_SELF'], 3, _TAD_PERMISSION_DENIED);
@@ -141,7 +141,7 @@ function get_tad_timeline($timeline_sn = '')
 //新增資料到tad_timeline中
 function insert_tad_timeline()
 {
-    global $xoopsDB, $xoopsUser, $isAdmin;
+    global $xoopsDB, $xoopsUser;
     $edit_event = Utility::power_chk('tad_timeline', 1);
     if (!$edit_event) {
         redirect_header($_SERVER['PHP_SELF'], 3, _TAD_PERMISSION_DENIED);
@@ -198,7 +198,7 @@ function insert_tad_timeline()
 //更新tad_timeline某一筆資料
 function update_tad_timeline($timeline_sn = '')
 {
-    global $xoopsDB, $isAdmin;
+    global $xoopsDB;
     $edit_event = Utility::power_chk('tad_timeline', 1);
     if (!$edit_event) {
         redirect_header($_SERVER['PHP_SELF'], 3, _TAD_PERMISSION_DENIED);
@@ -244,7 +244,7 @@ function update_tad_timeline($timeline_sn = '')
 //刪除tad_timeline某筆資料資料
 function delete_tad_timeline($timeline_sn = '')
 {
-    global $xoopsDB, $isAdmin;
+    global $xoopsDB;
     $edit_event = Utility::power_chk('tad_timeline', 1);
     if (!$edit_event) {
         redirect_header($_SERVER['PHP_SELF'], 3, _TAD_PERMISSION_DENIED);
@@ -268,7 +268,7 @@ function delete_tad_timeline($timeline_sn = '')
 //列出所有tad_timeline資料
 function list_tad_timeline()
 {
-    global $xoopsDB, $xoopsTpl, $isAdmin;
+    global $xoopsDB, $xoopsTpl;
     //判斷目前使用者是否有：發布權限
     $edit_event = Utility::power_chk('tad_timeline', 1);
     $xoopsTpl->assign('edit_event', $edit_event);
@@ -336,7 +336,7 @@ function list_tad_timeline()
 
     $xoopsTpl->assign('bar', $bar);
 //    $xoopsTpl->assign('delete_tad_timeline_func', $delete_tad_timeline_func);
-//    $xoopsTpl->assign('delete_tad_timeline_func', "{$_SERVER['PHP_SELF']}?op=delete_tad_timeline&timeline_sn=");
+    //    $xoopsTpl->assign('delete_tad_timeline_func', "{$_SERVER['PHP_SELF']}?op=delete_tad_timeline&timeline_sn=");
     $xoopsTpl->assign('action', $_SERVER['PHP_SELF']);
     $xoopsTpl->assign('edit_event', $edit_event);
     $xoopsTpl->assign('all_content', $all_content);

@@ -1,4 +1,5 @@
 <?php
+use Xmf\Request;
 use XoopsModules\Tadtools\FancyBox;
 use XoopsModules\Tadtools\SweetAlert;
 use XoopsModules\Tadtools\TadUpFiles;
@@ -52,10 +53,9 @@ function get_start_at_slide($def_timeline_sn = '')
 }
 
 /*-----------執行動作判斷區----------*/
-require_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
-$op = system_CleanVars($_REQUEST, 'op', '', 'string');
-$timeline_sn = system_CleanVars($_REQUEST, 'timeline_sn', '', 'int');
-$files_sn = system_CleanVars($_REQUEST, 'files_sn', '', 'int');
+$op = Request::getString('op');
+$timeline_sn = Request::getInt('timeline_sn');
+$files_sn = Request::getInt('files_sn');
 
 switch ($op) {
     /*---判斷動作請貼在下方---*/
@@ -65,7 +65,7 @@ switch ($op) {
         $timeline_sn = insert_tad_timeline();
         header("location: {$_SERVER['PHP_SELF']}?timeline_sn={$timeline_sn}");
         exit;
-        break;
+
     //更新資料
     case 'update_tad_timeline':
         update_tad_timeline($timeline_sn);
@@ -86,18 +86,21 @@ switch ($op) {
     case 'list_tad_timeline':
         list_tad_timeline();
         break;
+
     case 'tad_timeline_form':
         tad_timeline_form($timeline_sn);
         break;
+
     case 'timeline_mode':
         get_start_at_slide($timeline_sn);
         break;
+
     default:
         if ('list' === $xoopsModuleConfig['default_display_mode'] && empty($timeline_sn)) {
             header("location: {$_SERVER['PHP_SELF']}?op=list_tad_timeline");
             exit;
         }
-            get_start_at_slide($timeline_sn);
+        get_start_at_slide($timeline_sn);
 
         break;
         /*---判斷動作請貼在上方---*/
@@ -105,6 +108,5 @@ switch ($op) {
 
 /*-----------秀出結果區--------------*/
 $xoopsTpl->assign('toolbar', Utility::toolbar_bootstrap($interface_menu));
-$xoopsTpl->assign('isAdmin', $isAdmin);
 $xoopsTpl->assign('now_op', $op);
 require_once XOOPS_ROOT_PATH . '/footer.php';
