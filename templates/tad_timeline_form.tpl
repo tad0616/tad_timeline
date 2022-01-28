@@ -1,9 +1,9 @@
-<h2 class="sr-only">Edit Event</h2>
+<h2 class="sr-only visually-hidden">Edit Event</h2>
 
 <form action="<{$action}>" method="post" id="myForm" enctype="multipart/form-data" class="form-horizontal" role="form">
 
   <!--事件年-->
-  <div class="form-group row">
+  <div class="form-group row mb-3">
     <label class="col-md-2 col-form-label text-sm-right control-label">
       <{$smarty.const._MD_TAD_TIMELINE_YEAR}>
     </label>
@@ -41,7 +41,7 @@
   </div>
 
   <!--事件標題-->
-  <div class="form-group row">
+  <div class="form-group row mb-3">
     <label class="col-md-2 col-form-label text-sm-right control-label">
       <{$smarty.const._MD_TAD_TIMELINE_TEXT_HEADLINE}>
     </label>
@@ -51,7 +51,7 @@
   </div>
 
   <!--事件說明-->
-  <div class="form-group row">
+  <div class="form-group row mb-3">
     <label class="col-md-2 col-form-label text-sm-right control-label">
       <{$smarty.const._MD_TAD_TIMELINE_TEXT_TEXT}>
     </label>
@@ -61,7 +61,7 @@
   </div>
 
   <!--上傳-->
-  <div class="form-group row">
+  <div class="form-group row mb-3">
     <label class="col-md-2 col-form-label text-sm-right control-label">
       <{$smarty.const._MD_TAD_TIMELINE_UP_EVENT_SN}>
     </label>

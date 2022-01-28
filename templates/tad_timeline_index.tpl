@@ -11,7 +11,7 @@
       });
     });
   </script>
-  <h2 class="sr-only">List Event</h2>
+  <h2 class="sr-only visually-hidden">List Event</h2>
 
   <{if $now_op=="list_tad_timeline"}>
     <{includeq file="$xoops_rootpath/modules/tad_timeline/templates/tad_timeline_list.tpl"}>
@@ -46,7 +46,7 @@
   <{/if}>
 
 
-  <div class="text-right" style="margin:30px 0px;">
+  <div class="text-right text-end" style="margin:30px 0px;">
     <{if $edit_event}>
       <{if $timeline_sn}>
         <a href="javascript:delete_tad_timeline_func(<{$timeline_sn}>);" class="btn btn-danger"><{$smarty.const._TAD_DEL}></a>

@@ -3,11 +3,14 @@
 function tad_timeline_search($queryarray, $andor, $limit, $offset, $userid)
 {
     global $xoopsDB;
-    if (get_magic_quotes_gpc()) {
+    $myts = \MyTextSanitizer::getInstance();
+    if (is_array($queryarray)) {
         foreach ($queryarray as $k => $v) {
-            $arr[$k] = addslashes($v);
+            $arr[$k] = $myts->addSlashes($v);
         }
         $queryarray = $arr;
+    } else {
+        $queryarray = [];
     }
     $sql = 'SELECT `timeline_sn`, `text_headline`, `year`, `month`, `day`, `timeline_uid` FROM ' . $xoopsDB->prefix('tad_timeline') . ' WHERE 1';
     if (0 != $userid) {
