@@ -50,6 +50,7 @@ function get_start_at_slide($def_timeline_sn = '')
         return;
     }
     $xoopsTpl->assign('start_at_slide', $order[$def_timeline_sn]);
+    Utility::add_migrate();
 }
 
 /*-----------執行動作判斷區----------*/

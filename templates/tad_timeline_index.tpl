@@ -1,7 +1,7 @@
 <{$toolbar}>
 
 <{if $now_op=="tad_timeline_form"}>
-  <{includeq file="$xoops_rootpath/modules/tad_timeline/templates/tad_timeline_form.tpl"}>
+  <{include file="$xoops_rootpath/modules/tad_timeline/templates/tad_timeline_form.tpl"}>
 <{else}>
 
   <script>
@@ -14,7 +14,7 @@
   <h2 class="sr-only visually-hidden">List Event</h2>
 
   <{if $now_op=="list_tad_timeline"}>
-    <{includeq file="$xoops_rootpath/modules/tad_timeline/templates/tad_timeline_list.tpl"}>
+    <{include file="$xoops_rootpath/modules/tad_timeline/templates/tad_timeline_list.tpl"}>
   <{else}>
     <{if $have_content}>
       <!-- BEGIN TimelineJS -->
@@ -66,7 +66,7 @@
   <{if $edit_event}>
     <!--顯示表單-->
     <div class="well card card-body bg-light m-1" style="display: none;" id="edit_timeline">
-      <{includeq file="$xoops_rootpath/modules/tad_timeline/templates/tad_timeline_form.tpl"}>
+      <{include file="$xoops_rootpath/modules/tad_timeline/templates/tad_timeline_form.tpl"}>
     </div>
   <{/if}>
 <{/if}>

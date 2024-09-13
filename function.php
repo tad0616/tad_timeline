@@ -155,14 +155,12 @@ function insert_tad_timeline()
         redirect_header($_SERVER['PHP_SELF'], 3, $error);
     }
 
-    $myts = \MyTextSanitizer::getInstance();
-
     $timeline_sn = (int) $_POST['timeline_sn'];
-    $year = $myts->addSlashes($_POST['year']);
-    $month = $myts->addSlashes($_POST['month']);
-    $day = $myts->addSlashes($_POST['day']);
-    $text_headline = $myts->addSlashes($_POST['text_headline']);
-    $text_text = $myts->addSlashes($_POST['text_text']);
+    $year = $xoopsDB->escape($_POST['year']);
+    $month = $xoopsDB->escape($_POST['month']);
+    $day = $xoopsDB->escape($_POST['day']);
+    $text_headline = $xoopsDB->escape($_POST['text_headline']);
+    $text_text = $xoopsDB->escape($_POST['text_text']);
     $timeline_uid = (int) $_POST['timeline_uid'];
 
     $sql = 'insert into `' . $xoopsDB->prefix('tad_timeline') . "` (
@@ -212,14 +210,12 @@ function update_tad_timeline($timeline_sn = '')
         redirect_header($_SERVER['PHP_SELF'], 3, $error);
     }
 
-    $myts = \MyTextSanitizer::getInstance();
-
     $timeline_sn = (int) $_POST['timeline_sn'];
-    $year = $myts->addSlashes($_POST['year']);
-    $month = $myts->addSlashes($_POST['month']);
-    $day = $myts->addSlashes($_POST['day']);
-    $text_headline = $myts->addSlashes($_POST['text_headline']);
-    $text_text = $myts->addSlashes($_POST['text_text']);
+    $year = $xoopsDB->escape($_POST['year']);
+    $month = $xoopsDB->escape($_POST['month']);
+    $day = $xoopsDB->escape($_POST['day']);
+    $text_headline = $xoopsDB->escape($_POST['text_headline']);
+    $text_text = $xoopsDB->escape($_POST['text_text']);
     $timeline_uid = (int) $_POST['timeline_uid'];
 
     $sql = 'update `' . $xoopsDB->prefix('tad_timeline') . "` set
