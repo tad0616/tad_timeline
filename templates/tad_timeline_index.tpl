@@ -39,7 +39,7 @@
       <!-- END TimelineJS -->
       <div id="my-timeline"></div>
     <{else}>
-      <div class="jumbotron text-center">
+      <div class="jumbotron bg-light p-5 rounded-lg m-3 text-center">
         <h1><{$smarty.const._MD_TAD_TIMELINE_EMPTY}></h1>
       </div>
     <{/if}>
