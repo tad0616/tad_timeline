@@ -1,5 +1,5 @@
-<{if $all_content}>
-  <{if $edit_event}>
+<{if $all_content|default:false}>
+  <{if $edit_event|default:false}>
     <{$delete_tad_timeline_func}>
   <{/if}>
 
@@ -15,7 +15,7 @@
           <!--事件標題-->
           <{$smarty.const._MD_TAD_TIMELINE_TEXT_HEADLINE}>
         </th>
-        <{if $edit_event}>
+        <{if $edit_event|default:false}>
           <th><{$smarty.const._TAD_FUNCTION}></th>
         <{/if}>
       </tr>
@@ -26,7 +26,7 @@
         <tr id="tr_<{$data.timeline_sn}>">
 
           <td>
-            <{$data.year}><{if $data.month}>-<{$data.month}><{if $data.day}>-<{$data.day}><{/if}><{/if}>
+            <{$data.year}><{if $data.month|default:false}>-<{$data.month}><{if $data.day|default:false}>-<{$data.day}><{/if}><{/if}>
           </td>
 
           <td>
@@ -35,7 +35,7 @@
             <{$data.list_file}>
           </td>
 
-          <{if $edit_event}>
+          <{if $edit_event|default:false}>
             <td nowrap="nowrap">
               <a href="javascript:delete_tad_timeline_func(<{$data.timeline_sn}>);" class="btn btn-sm btn-xs btn-danger"><{$smarty.const._TAD_DEL}></a>
               <a href="<{$xoops_url}>/modules/tad_timeline/index.php?op=tad_timeline_form&timeline_sn=<{$data.timeline_sn}>" class="btn btn-sm btn-xs btn-warning"><{$smarty.const._TAD_EDIT}></a>

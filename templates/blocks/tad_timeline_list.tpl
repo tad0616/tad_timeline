@@ -1,4 +1,4 @@
-<{if $block.have_content}>
+<{if $block.have_content|default:false}>
   <{if $block.mode!="timeline"}>
   <table class="table table-striped table-bordered table-hover">
     <thead>
@@ -17,7 +17,7 @@
       <{foreach from=$block.all_content item=data}>
         <tr id="tr_<{$data.timeline_sn}>">
           <td>
-            <{$data.year}><{if $data.month}>-<{$data.month}><{if $data.day}>-<{$data.day}><{/if}><{/if}>
+            <{$data.year}><{if $data.month|default:false}>-<{$data.month}><{if $data.day|default:false}>-<{$data.day}><{/if}><{/if}>
           </td>
 
           <td>

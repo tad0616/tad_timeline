@@ -16,7 +16,7 @@
   <{if $now_op=="list_tad_timeline"}>
     <{include file="$xoops_rootpath/modules/tad_timeline/templates/tad_timeline_list.tpl"}>
   <{else}>
-    <{if $have_content}>
+    <{if $have_content|default:false}>
       <!-- BEGIN TimelineJS -->
       <link rel="stylesheet" type="text/css" href="<{$xoops_url}>/modules/tad_timeline/class/timeline/css/timeline.css">
       <script type="text/javascript" src="<{$xoops_url}>/modules/tad_timeline/class/timeline/js/storyjs-embed.js"></script>
@@ -47,8 +47,8 @@
 
 
   <div class="text-right text-end" style="margin:30px 0px;">
-    <{if $edit_event}>
-      <{if $timeline_sn}>
+    <{if $edit_event|default:false}>
+      <{if $timeline_sn|default:false}>
         <a href="javascript:delete_tad_timeline_func(<{$timeline_sn}>);" class="btn btn-danger"><{$smarty.const._TAD_DEL}></a>
         <a href="<{$action}>?op=tad_timeline_form&timeline_sn=<{$timeline_sn}>" class="btn btn-warning"><{$smarty.const._TAD_EDIT}></a>
       <{/if}>
@@ -63,7 +63,7 @@
   </div>
 
   <!-- 判斷目前使用者是否有：發布權限 -->
-  <{if $edit_event}>
+  <{if $edit_event|default:false}>
     <!--顯示表單-->
     <div class="well card card-body bg-light m-1" style="display: none;" id="edit_timeline">
       <{include file="$xoops_rootpath/modules/tad_timeline/templates/tad_timeline_form.tpl"}>
