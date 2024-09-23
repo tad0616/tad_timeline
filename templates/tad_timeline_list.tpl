@@ -1,6 +1,6 @@
 <{if $all_content|default:false}>
   <{if $edit_event|default:false}>
-    <{$delete_tad_timeline_func}>
+    <{$delete_tad_timeline_func|default:''}>
   <{/if}>
 
   <div id="tad_timeline_save_msg"></div>
@@ -45,7 +45,7 @@
       <{/foreach}>
     </tbody>
   </table>
-  <{$bar}>
+  <{$bar|default:''}>
 <{else}>
   <div class="jumbotron bg-light p-5 rounded-lg m-3 text-center">
     <h1><{$smarty.const._MD_TAD_TIMELINE_EMPTY}></h1>

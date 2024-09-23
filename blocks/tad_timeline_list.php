@@ -60,12 +60,8 @@ function tad_timeline_list($options)
             $have_content = true;
             $i++;
         }
-        $block['start_at_slide'] = $options[1];
-        if (empty($options[1])) {
-            $block['start_at_slide'] = 1;
-        } else {
-            $block['start_at_slide'] = $order[$options[1]];
-        }
+
+        $block['start_at_slide'] = isset($options[1]) && isset($order[$options[1]]) ? $order[$options[1]] : 1;
 
     }
     $block['have_content'] = $have_content;

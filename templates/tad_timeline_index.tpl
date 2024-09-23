@@ -1,4 +1,4 @@
-<{$toolbar}>
+<{$toolbar|default:''}>
 
 <{if $now_op=="tad_timeline_form"}>
   <{include file="$xoops_rootpath/modules/tad_timeline/templates/tad_timeline_form.tpl"}>
@@ -27,7 +27,7 @@
             width:            '100%',
             height:           '500',
             start_at_end:     false,
-            start_at_slide:   <{$start_at_slide}>,
+            start_at_slide:   <{$start_at_slide|default:''}>,
             start_zoom_adjust:2,
             lang:             'zh-tw',
             source:           '<{$xoops_url}>/uploads/tad_timeline/tad_timeline.json',
@@ -49,8 +49,8 @@
   <div class="text-right text-end" style="margin:30px 0px;">
     <{if $edit_event|default:false}>
       <{if $timeline_sn|default:false}>
-        <a href="javascript:delete_tad_timeline_func(<{$timeline_sn}>);" class="btn btn-danger"><{$smarty.const._TAD_DEL}></a>
-        <a href="<{$action}>?op=tad_timeline_form&timeline_sn=<{$timeline_sn}>" class="btn btn-warning"><{$smarty.const._TAD_EDIT}></a>
+        <a href="javascript:delete_tad_timeline_func(<{$timeline_sn|default:''}>);" class="btn btn-danger"><{$smarty.const._TAD_DEL}></a>
+        <a href="<{$action|default:''}>?op=tad_timeline_form&timeline_sn=<{$timeline_sn|default:''}>" class="btn btn-warning"><{$smarty.const._TAD_EDIT}></a>
       <{/if}>
       <button class="btn btn-primary" id="add_event"><{$smarty.const._TAD_ADD}></button>
     <{/if}>
