@@ -11,7 +11,7 @@ use XoopsModules\Tadtools\Utility;
 //tad_timeline編輯表單
 function tad_timeline_form($timeline_sn = '')
 {
-    global $xoopsDB, $xoopsTpl, $xoopsUser;
+    global $xoopsTpl, $xoopsUser;
     $edit_event = Utility::power_chk('tad_timeline', 1);
     if (!$edit_event) {
         redirect_header($_SERVER['PHP_SELF'], 3, _TAD_PERMISSION_DENIED);
@@ -73,16 +73,14 @@ function tad_timeline_form($timeline_sn = '')
 function mk_json()
 {
     global $xoopsDB;
-    $myts = \MyTextSanitizer::getInstance();
-    $json['timeline']['headline'] = _MD_TAD_TIMELINE_JOSN_TITLE;
-    $json['timeline']['type'] = 'default';
-    $json['timeline']['text'] = _MD_TAD_TIMELINE_JOSN_TEXT;
-    $json['timeline']['startDate'] = date('Y,m,d');
+    $json['title']['media']['url'] = XOOPS_URL . '/modules/tad_timeline';
+    $json['title']['media']['caption'] = _MD_TAD_TIMELINE_SMNAME1;
+    $json['title']['text']['headline'] = _MD_TAD_TIMELINE_JOSN_TITLE;
+    $json['title']['text']['text'] = _MD_TAD_TIMELINE_JOSN_TEXT;
 
-    $sql = 'SELECT * FROM `' . $xoopsDB->prefix('tad_timeline') . '` ORDER BY year, month, day';
-    $result = $xoopsDB->query($sql)
-    or Utility::web_error($sql, __FILE__, __LINE__);
-    $i = 0;
+    $sql = 'SELECT * FROM `' . $xoopsDB->prefix('tad_timeline') . '` ORDER BY `year`, `month`, `day`';
+    $result = Utility::query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+
     while (false !== ($all = $xoopsDB->fetchArray($result))) {
         //以下會產生這些變數： $timeline_sn, $year, $month, $day, $text_headline, $text_text, $timeline_uid
         foreach ($all as $k => $v) {
@@ -99,21 +97,24 @@ function mk_json()
         $TadUpFiles = new TadUpFiles('tad_timeline');
         $TadUpFiles->set_col('timeline_sn', $timeline_sn, 1);
         $media_url = $TadUpFiles->get_pic_file('images');
-        $media_thumb = $TadUpFiles->get_pic_file('thumb'); //thumb 小圖, images 大圖（default）, file 檔案
+        $media_thumb = $TadUpFiles->get_pic_file('thumb');
 
         $m = empty($month) ? '' : $month;
         $d = empty($day) ? '' : $day;
 
-        $json['timeline']['date'][$i]['startDate'] = "{$year},{$m},{$d}";
-        $json['timeline']['date'][$i]['endDate'] = '';
-        $json['timeline']['date'][$i]['headline'] = $text_headline;
-        $json['timeline']['date'][$i]['text'] = $text_text;
-        $json['timeline']['date'][$i]['asset']['media'] = $media_url;
-        $json['timeline']['date'][$i]['asset']['credit'] = '';
-        $json['timeline']['date'][$i]['asset']['caption'] = $text_headline;
-        $i++;
+        $event['media']['url'] = $media_url;
+        $event['media']['caption'] = $text_headline;
+        $event['media']['thumbnail'] = $media_thumb;
+
+        $event['start_date']['month'] = $m;
+        $event['start_date']['day'] = $d;
+        $event['start_date']['year'] = $year;
+        $event['text']['headline'] = $text_headline;
+        $event['text']['text'] = $text_text;
+
+        $json['events'][] = $event;
     }
-    $json_code = json_encode($json);
+    $json_code = json_encode($json, 256);
 
     $file = XOOPS_ROOT_PATH . '/uploads/tad_timeline/tad_timeline.json';
     if (!file_put_contents($file, $json_code)) {
@@ -130,9 +131,9 @@ function get_tad_timeline($timeline_sn = '')
         return;
     }
 
-    $sql = 'select * from `' . $xoopsDB->prefix('tad_timeline') . "`
-    where `timeline_sn` = '{$timeline_sn}'";
-    $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+    $sql = 'SELECT * FROM `' . $xoopsDB->prefix('tad_timeline') . '` WHERE `timeline_sn` =?';
+    $result = Utility::query($sql, 'i', [$timeline_sn]) or Utility::web_error($sql, __FILE__, __LINE__);
+
     $data = $xoopsDB->fetchArray($result);
 
     return $data;
@@ -150,40 +151,23 @@ function insert_tad_timeline()
     //取得使用者編號
     $uid = ($xoopsUser) ? $xoopsUser->uid() : '';
     //XOOPS表單安全檢查
-    if (!$GLOBALS['xoopsSecurity']->check()) {
+    if ($_SERVER['SERVER_ADDR'] != '127.0.0.1' && !$GLOBALS['xoopsSecurity']->check()) {
         $error = implode('<br>', $GLOBALS['xoopsSecurity']->getErrors());
         redirect_header($_SERVER['PHP_SELF'], 3, $error);
     }
 
     $timeline_sn = (int) $_POST['timeline_sn'];
-    $year = $xoopsDB->escape($_POST['year']);
-    $month = $xoopsDB->escape($_POST['month']);
-    $day = $xoopsDB->escape($_POST['day']);
-    $text_headline = $xoopsDB->escape($_POST['text_headline']);
-    $text_text = $xoopsDB->escape($_POST['text_text']);
-    $timeline_uid = (int) $_POST['timeline_uid'];
-
-    $sql = 'insert into `' . $xoopsDB->prefix('tad_timeline') . "` (
-        `year`,
-        `month`,
-        `day`,
-        `text_headline`,
-        `text_text`,
-        `timeline_uid`
-    ) values(
-        '{$year}',
-        '{$month}',
-        '{$day}',
-        '{$text_headline}',
-        '{$text_text}',
-        '{$uid}'
-    )";
-    $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+    $year = $_POST['year'];
+    $month = $_POST['month'];
+    $day = $_POST['day'];
+    $text_headline = $_POST['text_headline'];
+    $text_text = $_POST['text_text'];
+    $sql = 'INSERT INTO `' . $xoopsDB->prefix('tad_timeline') . '` ( `year`, `month`, `day`, `text_headline`, `text_text`, `timeline_uid` ) VALUES( ?, ?, ?, ?, ?, ? )';
+    Utility::query($sql, 'siissi', [$year, $month, $day, $text_headline, $text_text, $uid]) or Utility::web_error($sql, __FILE__, __LINE__);
 
     //取得最後新增資料的流水編號
     $timeline_sn = $xoopsDB->getInsertId();
 
-    require_once XOOPS_ROOT_PATH . '/modules/tadtools/TadUpFiles.php';
     $TadUpFiles = new TadUpFiles('tad_timeline');
     $TadUpFiles->set_col('timeline_sn', $timeline_sn, 1);
     $TadUpFiles->upload_file('up_timeline_sn', '1280', '320', '', '', true, false);
@@ -205,28 +189,20 @@ function update_tad_timeline($timeline_sn = '')
     //取得使用者編號
     $uid = ($xoopsUser) ? $xoopsUser->uid() : '';
     //XOOPS表單安全檢查
-    if (!$GLOBALS['xoopsSecurity']->check()) {
+    if ($_SERVER['SERVER_ADDR'] != '127.0.0.1' && !$GLOBALS['xoopsSecurity']->check()) {
         $error = implode('<br>', $GLOBALS['xoopsSecurity']->getErrors());
         redirect_header($_SERVER['PHP_SELF'], 3, $error);
     }
 
     $timeline_sn = (int) $_POST['timeline_sn'];
-    $year = $xoopsDB->escape($_POST['year']);
-    $month = $xoopsDB->escape($_POST['month']);
-    $day = $xoopsDB->escape($_POST['day']);
-    $text_headline = $xoopsDB->escape($_POST['text_headline']);
-    $text_text = $xoopsDB->escape($_POST['text_text']);
-    $timeline_uid = (int) $_POST['timeline_uid'];
+    $year = $_POST['year'];
+    $month = $_POST['month'];
+    $day = $_POST['day'];
+    $text_headline = $_POST['text_headline'];
+    $text_text = $_POST['text_text'];
 
-    $sql = 'update `' . $xoopsDB->prefix('tad_timeline') . "` set
-       `year` = '{$year}',
-       `month` = '{$month}',
-       `day` = '{$day}',
-       `text_headline` = '{$text_headline}',
-       `text_text` = '{$text_text}',
-       `timeline_uid` = '{$uid}'
-    where `timeline_sn` = '$timeline_sn'";
-    $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+    $sql = 'UPDATE `' . $xoopsDB->prefix('tad_timeline') . '` SET `year` = ?, `month` = ?, `day` = ?, `text_headline` = ?, `text_text` = ?, `timeline_uid` = ? WHERE `timeline_sn` = ?';
+    Utility::query($sql, 'siissii', [$year, $month, $day, $text_headline, $text_text, $uid, $timeline_sn]) or Utility::web_error($sql, __FILE__, __LINE__);
 
     $TadUpFiles = new TadUpFiles('tad_timeline');
     $TadUpFiles->set_col('timeline_sn', $timeline_sn, 1);
@@ -250,9 +226,8 @@ function delete_tad_timeline($timeline_sn = '')
         return;
     }
 
-    $sql = 'delete from `' . $xoopsDB->prefix('tad_timeline') . "`
-    where `timeline_sn` = '{$timeline_sn}'";
-    $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+    $sql = 'DELETE FROM `' . $xoopsDB->prefix('tad_timeline') . '` WHERE `timeline_sn` = ?';
+    Utility::query($sql, 'i', [$timeline_sn]) or Utility::web_error($sql, __FILE__, __LINE__);
 
     $TadUpFiles = new TadUpFiles('tad_timeline');
     $TadUpFiles->set_col('timeline_sn', $timeline_sn, 1);

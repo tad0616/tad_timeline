@@ -9,57 +9,12 @@ require __DIR__ . '/header.php';
 $xoopsOption['template_main'] = 'tad_timeline_index.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 
-/*-----------功能函數區--------------*/
-
-function get_start_at_slide($def_timeline_sn = '')
-{
-    global $xoopsDB, $xoopsTpl;
-
-    //判斷目前使用者是否有：發布權限
-    $edit_event = Utility::power_chk('tad_timeline', 1);
-    $xoopsTpl->assign('edit_event', $edit_event);
-    if ($edit_event) {
-        tad_timeline_form();
-
-        $SweetAlert = new SweetAlert();
-        $SweetAlert->render(
-            'delete_tad_timeline_func',
-            "{$_SERVER['PHP_SELF']}?op=delete_tad_timeline&timeline_sn=",
-            'timeline_sn'
-        );
-    }
-
-    $sql = 'SELECT timeline_sn FROM `' . $xoopsDB->prefix('tad_timeline') . '` ORDER BY  `year` , `month` , `day`';
-    $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
-
-    $i = 1;
-    $order = [];
-    $have_content = false;
-    while (list($timeline_sn) = $xoopsDB->fetchRow($result)) {
-        $order[$timeline_sn] = $i;
-        $have_content = true;
-        $i++;
-    }
-    $xoopsTpl->assign('have_content', $have_content);
-
-    $FancyBox = new FancyBox('.media_image', '100%');
-    $FancyBox->render(false);
-    if (empty($def_timeline_sn)) {
-        $xoopsTpl->assign('start_at_slide', 1);
-
-        return;
-    }
-    $xoopsTpl->assign('start_at_slide', $order[$def_timeline_sn]);
-    Utility::add_migrate();
-}
-
 /*-----------執行動作判斷區----------*/
 $op = Request::getString('op');
 $timeline_sn = Request::getInt('timeline_sn');
 $files_sn = Request::getInt('files_sn');
 
 switch ($op) {
-    /*---判斷動作請貼在下方---*/
 
     //新增資料
     case 'insert_tad_timeline':
@@ -94,6 +49,7 @@ switch ($op) {
 
     case 'timeline_mode':
         get_start_at_slide($timeline_sn);
+        $op = 'get_start_at_slide';
         break;
 
     default:
@@ -102,12 +58,59 @@ switch ($op) {
             exit;
         }
         get_start_at_slide($timeline_sn);
+        $op = 'get_start_at_slide';
 
         break;
-        /*---判斷動作請貼在上方---*/
+
 }
 
 /*-----------秀出結果區--------------*/
-$xoopsTpl->assign('toolbar', Utility::toolbar_bootstrap($interface_menu));
+$xoopsTpl->assign('toolbar', Utility::toolbar_bootstrap($interface_menu, false, $interface_icon));
 $xoopsTpl->assign('now_op', $op);
 require_once XOOPS_ROOT_PATH . '/footer.php';
+
+/*-----------功能函數區--------------*/
+
+function get_start_at_slide($def_timeline_sn = '')
+{
+    global $xoopsDB, $xoopsTpl, $xoTheme;
+    $xoTheme->addStylesheet('modules/tad_timeline/class/timeline/timeline.css');
+    $xoTheme->addScript('modules/tad_timeline/class/timeline/timeline.js');
+
+    //判斷目前使用者是否有：發布權限
+    $edit_event = Utility::power_chk('tad_timeline', 1);
+    $xoopsTpl->assign('edit_event', $edit_event);
+    if ($edit_event) {
+        tad_timeline_form();
+
+        $SweetAlert = new SweetAlert();
+        $SweetAlert->render(
+            'delete_tad_timeline_func',
+            "{$_SERVER['PHP_SELF']}?op=delete_tad_timeline&timeline_sn=",
+            'timeline_sn'
+        );
+    }
+
+    $sql = 'SELECT `timeline_sn` FROM `' . $xoopsDB->prefix('tad_timeline') . '` ORDER BY `year`, `month`, `day`';
+    $result = Utility::query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+
+    $i = 1;
+    $order = [];
+    $have_content = false;
+    while (list($timeline_sn) = $xoopsDB->fetchRow($result)) {
+        $order[$timeline_sn] = $i;
+        $have_content = true;
+        $i++;
+    }
+    $xoopsTpl->assign('have_content', $have_content);
+
+    $FancyBox = new FancyBox('.media_image', '100%');
+    $FancyBox->render(false);
+    if (empty($def_timeline_sn)) {
+        $xoopsTpl->assign('start_at_slide', 1);
+
+        return;
+    }
+    $xoopsTpl->assign('start_at_slide', $order[$def_timeline_sn]);
+    // Utility::add_migrate();
+}

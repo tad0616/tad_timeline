@@ -32,22 +32,17 @@
   <{else}>
 
     <!-- BEGIN TimelineJS -->
-    <script type="text/javascript" src="<{$xoops_url}>/modules/tad_timeline/class/timeline/js/storyjs-embed.js"></script>
-    <script>
-      $(document).ready(function() {
-        createStoryJS({
-          type:             'timeline',
-          width:            '100%',
-          height:           '500',
-          start_at_end:     false,
-          start_at_slide:   <{$block.start_at_slide}>,
-          start_zoom_adjust:2,
-          lang:             'zh-tw',
-          source:           '<{$xoops_url}>/uploads/tad_timeline/tad_timeline.json',
-          embed_id:         'my-timeline-block',
-          debug:            true
-        });
-      });
+    <div id="my-timeline-block" style="width: 100%; height: 600px"></div>
+    <script type="text/javascript">
+        var additionalOptions = {
+          start_at_end: false,
+          default_bg_color: {r:255, g:255, b:255},
+          start_at_slide: <{$block.start_at_slide|default:0}>,
+          language: 'zh-tw'
+        }
+
+        window.timeline = new TL.Timeline('my-timeline-block','<{$xoops_url}>/uploads/tad_timeline/tad_timeline.json',
+        additionalOptions);
     </script>
     <!-- END TimelineJS -->
 

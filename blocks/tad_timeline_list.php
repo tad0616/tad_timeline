@@ -8,15 +8,18 @@ if (!class_exists('XoopsModules\Tadtools\Utility')) {
 //區塊主函式 (tad_timeline_list)
 function tad_timeline_list($options)
 {
-    global $xoopsDB;
+    global $xoopsDB, $xoTheme;
+    $xoTheme->addStylesheet('modules/tad_timeline/class/timeline/timeline.css');
+    $xoTheme->addScript('modules/tad_timeline/class/timeline/timeline.js');
 
     $have_content = false;
     $block['mode'] = $options[0];
     if ('list' === $options[0]) {
         $myts = \MyTextSanitizer::getInstance();
         $TadUpFiles = new TadUpFiles('tad_timeline');
+
         $sql = 'SELECT * FROM `' . $xoopsDB->prefix('tad_timeline') . '` ORDER BY `year`, `month`, `day`';
-        $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+        $result = Utility::query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
 
         $all_content = [];
 
@@ -50,8 +53,8 @@ function tad_timeline_list($options)
 
         $block['all_content'] = $all_content;
     } else {
-        $sql = 'SELECT timeline_sn FROM `' . $xoopsDB->prefix('tad_timeline') . '` ORDER BY  `year` , `month` , `day`';
-        $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+        $sql = 'SELECT `timeline_sn` FROM `' . $xoopsDB->prefix('tad_timeline') . '` ORDER BY `year`, `month`, `day`';
+        $result = Utility::query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
 
         $i = 1;
         $order = [];
@@ -74,8 +77,9 @@ function tad_timeline_list_edit($options)
 {
     global $xoopsDB;
 
-    $sql = 'SELECT timeline_sn,year,month,day,text_headline FROM `' . $xoopsDB->prefix('tad_timeline') . '` ORDER BY year, month, day';
-    $result = $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+    $sql = 'SELECT `timeline_sn`, `year`, `month`, `day`, `text_headline` FROM `' . $xoopsDB->prefix('tad_timeline') . '` ORDER BY `year`, `month`, `day`';
+    $result = Utility::query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+
     $opt = '';
     while (list($timeline_sn, $year, $month, $day, $text_headline) = $xoopsDB->fetchRow($result)) {
         $selected = $options[1] == $timeline_sn ? 'selected' : '';
