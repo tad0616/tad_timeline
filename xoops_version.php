@@ -15,8 +15,7 @@ $modversion['image'] = 'images/logo.png';
 $modversion['dirname'] = basename(__DIR__);
 
 //---模組狀態資訊---//
-$modversion['status_version'] = '2.0';
-$modversion['release_date'] = '2024-11-11';
+$modversion['release_date'] = '2024-11-18';
 $modversion['module_website_url'] = 'http://www.tad0616.net';
 $modversion['module_website_name'] = _MI_TAD_TIMELINE_AUTHOR_WEB;
 $modversion['module_status'] = 'release';
