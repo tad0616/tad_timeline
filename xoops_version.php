@@ -63,15 +63,17 @@ $modversion['templates'] = [
     ['file' => 'tad_timeline_index.tpl', 'description' => 'tad_timeline_index.tpl'],
 ];
 
-//---區塊設定---//
-$modversion['blocks'][] = [
-    'file' => 'tad_timeline_list.php',
-    'name' => _MI_TAD_TIMELINE_LIST_BLOCK_NAME,
-    'description' => _MI_TAD_TIMELINE_LIST_BLOCK_DESC,
-    'show_func' => 'tad_timeline_list',
-    'template' => 'tad_timeline_list.tpl',
-    'edit_func' => 'tad_timeline_list_edit',
-    'options' => 'timeline|1',
+//---區塊設定 (索引為固定值，若欲刪除區塊記得補上索引，避免區塊重複)---//
+$modversion['blocks'] = [
+    1 => [
+        'file' => 'tad_timeline_list.php',
+        'name' => _MI_TAD_TIMELINE_LIST_BLOCK_NAME,
+        'description' => _MI_TAD_TIMELINE_LIST_BLOCK_DESC,
+        'show_func' => 'tad_timeline_list',
+        'template' => 'tad_timeline_list.tpl',
+        'edit_func' => 'tad_timeline_list_edit',
+        'options' => 'timeline|1',
+    ],
 ];
 
 //---偏好設定---//
