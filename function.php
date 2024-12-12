@@ -157,11 +157,11 @@ function insert_tad_timeline()
     }
 
     $timeline_sn = (int) $_POST['timeline_sn'];
-    $year = $_POST['year'];
-    $month = $_POST['month'];
-    $day = $_POST['day'];
-    $text_headline = $_POST['text_headline'];
-    $text_text = $_POST['text_text'];
+    $year = (string) $_POST['year'];
+    $month = (int) $_POST['month'];
+    $day = (int) $_POST['day'];
+    $text_headline = (string) $_POST['text_headline'];
+    $text_text = (string) $_POST['text_text'];
     $sql = 'INSERT INTO `' . $xoopsDB->prefix('tad_timeline') . '` ( `year`, `month`, `day`, `text_headline`, `text_text`, `timeline_uid` ) VALUES( ?, ?, ?, ?, ?, ? )';
     Utility::query($sql, 'siissi', [$year, $month, $day, $text_headline, $text_text, $uid]) or Utility::web_error($sql, __FILE__, __LINE__);
 
@@ -195,11 +195,11 @@ function update_tad_timeline($timeline_sn = '')
     }
 
     $timeline_sn = (int) $_POST['timeline_sn'];
-    $year = $_POST['year'];
-    $month = $_POST['month'];
-    $day = $_POST['day'];
-    $text_headline = $_POST['text_headline'];
-    $text_text = $_POST['text_text'];
+    $year = (string) $_POST['year'];
+    $month = (int) $_POST['month'];
+    $day = (int) $_POST['day'];
+    $text_headline = (string) $_POST['text_headline'];
+    $text_text = (string) $_POST['text_text'];
 
     $sql = 'UPDATE `' . $xoopsDB->prefix('tad_timeline') . '` SET `year` = ?, `month` = ?, `day` = ?, `text_headline` = ?, `text_text` = ?, `timeline_uid` = ? WHERE `timeline_sn` = ?';
     Utility::query($sql, 'siissii', [$year, $month, $day, $text_headline, $text_text, $uid, $timeline_sn]) or Utility::web_error($sql, __FILE__, __LINE__);

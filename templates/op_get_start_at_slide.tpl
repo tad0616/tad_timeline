@@ -33,9 +33,9 @@
   <{if $edit_event|default:false}>
     <{if $timeline_sn|default:false}>
       <a href="javascript:delete_tad_timeline_func(<{$timeline_sn|default:''}>);" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> <{$smarty.const._TAD_DEL}></a>
-      <a href="<{$action|default:''}>?op=tad_timeline_form&timeline_sn=<{$timeline_sn|default:''}>" class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  <{$smarty.const._TAD_EDIT}></a>
+      <a href="<{$action|default:''}>?op=tad_timeline_form&timeline_sn=<{$timeline_sn|default:''}>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i>  <{$smarty.const._TAD_EDIT}></a>
     <{/if}>
-    <button class="btn btn-primary" id="add_event"><i class="fa fa-plus-square" aria-hidden="true"></i>  <{$smarty.const._TAD_ADD}></button>
+    <button class="btn btn-primary" id="add_event"><i class="fa fa-square-plus" aria-hidden="true"></i>  <{$smarty.const._TAD_ADD}></button>
   <{/if}>
 
   <{if $now_op=="list_tad_timeline"}>

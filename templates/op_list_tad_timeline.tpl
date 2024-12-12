@@ -38,7 +38,7 @@
           <{if $edit_event|default:false}>
             <td nowrap="nowrap">
               <a href="javascript:delete_tad_timeline_func(<{$data.timeline_sn}>);" class="btn btn-sm btn-xs btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> <{$smarty.const._TAD_DEL}></a>
-              <a href="<{$xoops_url}>/modules/tad_timeline/index.php?op=tad_timeline_form&timeline_sn=<{$data.timeline_sn}>" class="btn btn-sm btn-xs btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  <{$smarty.const._TAD_EDIT}></a>
+              <a href="<{$xoops_url}>/modules/tad_timeline/index.php?op=tad_timeline_form&timeline_sn=<{$data.timeline_sn}>" class="btn btn-sm btn-xs btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i>  <{$smarty.const._TAD_EDIT}></a>
             </td>
           <{/if}>
         </tr>
